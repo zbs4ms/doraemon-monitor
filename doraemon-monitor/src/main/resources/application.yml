@@ -1,0 +1,39 @@
+server:
+    port: 50001
+    # 统一接口访问前缀
+    servlet-path: /monitor
+
+redis:
+     host: 10.10.20.206
+     port: 6381
+
+spring:
+    datasource:
+        name: ReadAndWrite
+        url: jdbc:mysql://182.92.78.118:3306/monitor?useUnicode=true&characterEncoding=utf-8&useSSL=false
+        username: root
+        password: root
+        # 使用druid数据源
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        filters: stat
+        maxActive: 20
+        initialSize: 1
+        maxWait: 60000
+        minIdle: 1
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxOpenPreparedStatements: 20
+
+management:
+    address: 127.0.0.1
+mybatis:
+    my:
+        beanPath: com.doraemon.monitor.dao.models
+        mapperXmlPath: classpath:mapper/*.xml
+        mapperPath: com.doraemon.monitor.dao.mapper
