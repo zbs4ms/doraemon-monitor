@@ -54,17 +54,17 @@ public class DateTool {
 
     public DateBean getLastDay(){
         Calendar startCalendar = Calendar.getInstance();
+        startCalendar.setTime(new Date());
         startCalendar.add(Calendar.DATE,-1);
-        startCalendar.set(Calendar.HOUR,0);
-        startCalendar.set(Calendar.MINUTE,0);
-        startCalendar.set(Calendar.SECOND,0);
-        startCalendar.set(Calendar.MILLISECOND,0);
+        startCalendar.set(Calendar.HOUR_OF_DAY, 0);
+        startCalendar.set(Calendar.MINUTE, 0);
+        startCalendar.set(Calendar.SECOND, 0);
         Calendar stopCalendar =Calendar.getInstance();
+        stopCalendar.setTime(new Date());
         stopCalendar.add(Calendar.DATE,-1);
-        stopCalendar.set(Calendar.HOUR,23);
-        stopCalendar.set(Calendar.MINUTE,59);
-        stopCalendar.set(Calendar.SECOND,59);
-        stopCalendar.set(Calendar.MILLISECOND,59);
+        stopCalendar.set(Calendar.HOUR_OF_DAY, 23);
+        stopCalendar.set(Calendar.MINUTE, 59);
+        stopCalendar.set(Calendar.SECOND, 59);
         return new DateBean(startCalendar.getTime(),stopCalendar.getTime());
 
     }

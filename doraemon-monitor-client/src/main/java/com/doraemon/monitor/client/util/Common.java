@@ -5,6 +5,6 @@ package com.doraemon.monitor.client.util;
  */
 public class Common {
 
-    public static final String ADD_MESSAGE_URL = "http://localhost:50001/monitor/message/addMessage";
-    public static final String UPDATE_CONFIG_URL = "http://localhost:50001/monitor/config/queryConfig";
+    public static final String ADD_MESSAGE_URL = "http://monitor-service:50001/monitor/message/addMessage";
+    public static final String UPDATE_CONFIG_URL = "http://monitor-service:50001/monitor/config/queryConfig";
 }

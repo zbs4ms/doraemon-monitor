@@ -21,4 +21,16 @@ public class TerminalUsability {
     String clientIp;
     String terminalIp;
     BigDecimal usability;
+
+    public TerminalUsability() {
+    }
+
+    public TerminalUsability(Long id, Date statisticalTime, String timeType, String clientIp, String terminalIp, BigDecimal usability) {
+        this.id = id;
+        this.statisticalTime = statisticalTime;
+        this.timeType = timeType;
+        this.clientIp = clientIp;
+        this.terminalIp = terminalIp;
+        this.usability = usability;
+    }
 }

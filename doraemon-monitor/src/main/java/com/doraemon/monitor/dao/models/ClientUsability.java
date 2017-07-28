@@ -20,4 +20,13 @@ public class ClientUsability {
     String timeType;
     String clientIp;
     BigDecimal usability;
+
+    public ClientUsability(){}
+    public ClientUsability(Long id,Date statisticalTime,String timeType,String clientIp,BigDecimal usability){
+        this.id = id;
+        this.statisticalTime = statisticalTime;
+        this.timeType = timeType;
+        this.clientIp = clientIp;
+        this.usability = usability;
+    }
 }

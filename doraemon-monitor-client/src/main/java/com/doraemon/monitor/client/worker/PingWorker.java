@@ -1,9 +1,11 @@
 package com.doraemon.monitor.client.worker;
 
+import com.alibaba.fastjson.JSON;
 import com.doraemon.monitor.client.Service.UpdateConfigService;
 import com.doraemon.monitor.client.controller.protocol.ClientPro;
 import com.doraemon.monitor.client.controller.protocol.MessagePro;
 import com.doraemon.monitor.client.controller.protocol.TerminalPro;
+import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -17,9 +19,11 @@ import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
+ * ping 终端信息
  * Created by zbs on 2017/7/6.
  */
 @Component
+@Log4j
 public class PingWorker {
 
     @Autowired
@@ -29,11 +33,12 @@ public class PingWorker {
 
 
     /**
-     * 每1分钟轮训一次
+     * 每1分钟轮训一次,根据配置文件ping终端,收集信息
      */
-   // @Scheduled(cron = "0 0/1 * * * ?")
-    @Scheduled(cron = "0/1 * * * * ? ")
+    @Scheduled(cron = "0 0/1 * * * ?")
     public void ping() throws Exception {
+        if(updateConfigService == null)
+            log.error("从服务端无法获取到配置文件信息.");
         List<MessagePro> messageProList = new ArrayList<>();
         ClientPro clientPro = updateConfigService.getClientPro();
         if(clientPro == null)
