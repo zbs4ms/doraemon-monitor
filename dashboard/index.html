@@ -159,6 +159,9 @@
 <script src="js/fnReloadAjax.js"></script>
 <script>
     $(document).ready(function () {
+
+
+        var base_url = "http://39.108.117.235:50001/";
         var $historyLogTable = $('.history-log-table');
         //切换tab页
         $(".tabs .tab").click(function () {
@@ -175,14 +178,14 @@
             //开启服务器模式
             serverSide: true,
             bRetrieve: true,
-            "ajax": {"url":"data/problem-equipment-data.txt", "dataSrc": "data"},
+//            "ajax": {"url":"data/problem-equipment-data.txt", "dataSrc": "data"},
 
-//            'ajax': {
-//                'url': '/monitor/config/queryConfig',
-//                "dataSrc": "data",
-//
-//                'type': 'GET',
-//            },
+            'ajax': {
+                'url': base_url+'monitor/config/queryConfig',
+                "dataSrc": "data",
+
+                'type': 'GET',
+            },
             "paging": false,
             "searching": false,
             "info": false,
@@ -224,12 +227,13 @@
 //        ).draw();
         var historyLogTable = $('.history-log-table').DataTable({
            // "ajax": "data/history-log-data.txt",
-            //"ajax":"http://192.168.6.95:50001/monitor/config/queryConfig",
+            //"ajax":"http://39.108.117.235:50001/monitor/config/queryConfig",
 
             //开启服务器模式
             bRetrieve: true,
             serverSide: true,
-            "ajax": {"url":"data/history-log-data.txt", "dataSrc": "data"},
+           // "ajax": {"url":"data/history-log-data.txt", "dataSrc": "data"},
+            "ajax": {"url":base_url+"monitor/config/queryConfig", "dataSrc": "data"},
             "paging": false,
             "searching": false,
             "info": false,
@@ -284,8 +288,8 @@
         $('.history-log-table tbody').on('click','a',function(){
             var data = historyLogTable.row( $(this).parents('tr') ).data();
             var table = $('.details-table').dataTable();
-            table.fnReloadAjax("data/detail-data2.txt");
-            //table.fnReloadAjax("/monitor/config/queryConfig?ip="+data.ip);
+            //table.fnReloadAjax("data/detail-data2.txt");
+            table.fnReloadAjax(base_url+"monitor/config/queryConfig?ip="+data.ip);
 
         })
 
