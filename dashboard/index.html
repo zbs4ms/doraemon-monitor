@@ -161,7 +161,7 @@
     $(document).ready(function () {
 
 
-        var base_url = "http://39.108.117.235:50001/";
+        var base_url = "http://39.108.117.235:50001";
         var $historyLogTable = $('.history-log-table');
         //切换tab页
         $(".tabs .tab").click(function () {
@@ -181,7 +181,7 @@
 //            "ajax": {"url":"data/problem-equipment-data.txt", "dataSrc": "data"},
 
             'ajax': {
-                'url': base_url+'monitor/config/queryConfig',
+                'url': '/monitor/config/queryConfig',
                 "dataSrc": "data",
 
                 'type': 'GET',
@@ -233,7 +233,7 @@
             bRetrieve: true,
             serverSide: true,
            // "ajax": {"url":"data/history-log-data.txt", "dataSrc": "data"},
-            "ajax": {"url":base_url+"monitor/config/queryConfig", "dataSrc": "data"},
+            "ajax": {"url":"/monitor/config/queryConfig", "dataSrc": "data"},
             "paging": false,
             "searching": false,
             "info": false,
@@ -289,7 +289,7 @@
             var data = historyLogTable.row( $(this).parents('tr') ).data();
             var table = $('.details-table').dataTable();
             //table.fnReloadAjax("data/detail-data2.txt");
-            table.fnReloadAjax(base_url+"monitor/config/queryConfig?ip="+data.ip);
+            table.fnReloadAjax("/monitor/config/queryConfig?ip="+data.ip);
 
         })
 
