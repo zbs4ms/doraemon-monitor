@@ -1,0 +1,31 @@
+.checkbox-wrap{
+  position: relative;
+  input[type=checkbox]{
+    visibility: hidden;
+  }
+  .checkbox-inner{
+    position: absolute;
+    left:0;
+    top:0;
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border:1px solid $checkbox-color;
+    &:after{
+      transition: all .5s;
+      content: '';
+      position: absolute;
+      width: 6px;
+      height: 3px;
+      transform: rotate(-45deg);
+      border-left: 1px solid $checkbox-color;
+      border-bottom: 1px solid $checkbox-color;
+      opacity: 0;
+      left: 2px;
+      top: 2px;
+    }
+  }
+  input:checked + .checkbox-inner:after{
+    opacity: 1;
+  }
+}

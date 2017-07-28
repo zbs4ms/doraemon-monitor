@@ -1,0 +1,42 @@
+{
+  "code": null,
+  "data": [
+    {
+      "nick": "测试机器",
+      "ip": "127.0.0.1",
+      "shopId": "1",
+      "region": "上海",
+      "terminalList": [
+        {
+          "deviceType": "WAN",
+          "nick": "2周彬杉",
+          "clientIp": "127.0.0.1",
+          "warningNum": 0,
+          "offTime": null,
+          "status": "0",
+          "terminalIp": "127.0.0.1"
+        },
+        {
+          "deviceType": "WAN",
+          "nick": "2测试不过",
+          "clientIp": "127.0.0.1",
+          "warningNum": 0,
+          "offTime": null,
+          "status": null,
+          "terminalIp": "192.168.6.58"
+        },
+        {
+          "deviceType": "WAN",
+          "nick": "2陈世荣",
+          "clientIp": "127.0.0.1",
+          "warningNum": 0,
+          "offTime": null,
+          "status": null,
+          "terminalIp": "192.168.6.59"
+        }
+      ]
+    }
+  ],
+  "success": true,
+  "message": null
+}

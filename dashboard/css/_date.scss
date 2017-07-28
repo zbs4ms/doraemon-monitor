@@ -1,0 +1,57 @@
+.ta_date {
+  border: none;
+  background: $color-blue-grey;
+  box-shadow: none;
+  .date_title {
+    border-right: none;
+    color: $color-light;
+  }
+  .i_orderd {
+    border-top: none;
+    border-bottom: 5px solid $color-light;
+  }
+}
+
+.ta_calendar {
+  background: $calendar-bg;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.12), 0 0 6px 0 rgba(0, 0, 0, 0.04);
+  table thead {
+    tr {
+      border: none;
+    }
+    th {
+      background: $calendar-bg;
+      border-bottom-color: $calendar-border;
+      border-top-color: $calendar-border;
+      color: $color-light;
+    }
+
+  }
+  table caption {
+    color: $color-light;
+  }
+  tbody td {
+    color: $color-light;
+    &.ta_dateRangeGray {
+      color: #656d82;
+    }
+  }
+  &_footer {
+    background: $calendar-bg;
+    border-top: 1px solid $calendar-border;
+  }
+}
+
+.ta_btn {
+  color: $color-light;
+  background: $color-blue-grey;
+  border: none;
+  &:hover {
+    color: $color-light;
+    border:none;
+    background: $color-blue-light;
+  }
+  &_primary {
+    background: $color-blue-grey;
+  }
+}

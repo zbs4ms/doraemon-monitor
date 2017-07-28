@@ -1,0 +1,68 @@
+{
+  "code": null,
+  "data": [
+    {
+      "nick": "测试机器",
+      "ip": "127.0.0.1",
+      "shopId": "1",
+      "region": "上海",
+      "terminalList": [
+        {
+          "deviceType": "WAN",
+          "nick": "周彬杉",
+          "clientIp": "127.0.0.1",
+          "warningNum": 0,
+          "offTime": null,
+          "status": "0",
+          "terminalIp": "127.0.0.1"
+        },
+        {
+          "deviceType": "WAN",
+          "nick": "测试不过",
+          "clientIp": "127.0.0.1",
+          "warningNum": 0,
+          "offTime": null,
+          "status": null,
+          "terminalIp": "192.168.6.58"
+        },
+        {
+          "deviceType": "WAN",
+          "nick": "陈世荣",
+          "clientIp": "127.0.0.1",
+          "warningNum": 0,
+          "offTime": null,
+          "status": null,
+          "terminalIp": "192.168.6.59"
+        }
+      ]
+    },
+    {
+      "nick": "测试机器2",
+      "ip": "localhost",
+      "shopId": "2",
+      "region": "四川",
+      "terminalList": [
+        {
+          "deviceType": "WAN",
+          "nick": "测试",
+          "clientIp": "localhost",
+          "warningNum": 0,
+          "offTime": null,
+          "status": null,
+          "terminalIp": "127.0.0.1"
+        },
+        {
+          "deviceType": "WAN",
+          "nick": "测试",
+          "clientIp": "localhost",
+          "warningNum": 0,
+          "offTime": null,
+          "status": null,
+          "terminalIp": "127.0.0.2"
+        }
+      ]
+    }
+  ],
+  "success": true,
+  "message": null
+}

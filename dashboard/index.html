@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="css/jquery.dataTables.min.css" rel="stylesheet"/>
+    <link href="css/dateRange.css" rel="stylesheet"/>
+    <link href="css/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
+    <link href="css/index.css" rel="stylesheet"/>
+    <title>Document</title>
+</head>
+<body>
+<ul class="tabs clearfix">
+    <li class="tab active"><a href="#problemEquipment">All Active Alert</a></li>
+    <li class="tab"><a href="#historyLog">History Log</a></li>
+</ul>
+<div class="tab-content">
+    <canvas id="waves" class="waves"></canvas>
+    <div class="tab-panel active problem-equipment" id="problemEquipment">
+        <div class="left-container">
+            <table class="problem-equipment-table" width="100%">
+                <thead>
+                <tr>
+                    <th id="area">Area</th>
+                    <th>Network type</th>
+                    <th>Nodes name</th>
+                    <th>Device name</th>
+                    <th>IP address</th>
+                    <th>Trigger Time</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+            </table>
+            <div class="popup" id = "areaList">
+                <ul class="region-list">
+                    <li><label class="checkbox-wrap"><input type="checkbox"/><span
+                            class="checkbox-inner"></span>全部</label></li>
+                    <li><label class="checkbox-wrap"><input type="checkbox"/><span
+                            class="checkbox-inner"></span>金牛区</label></li>
+                    <li><label class="checkbox-wrap"><input type="checkbox"/><span
+                            class="checkbox-inner"></span>青羊区</label></li>
+                    <li><label class="checkbox-wrap"><input type="checkbox"/><span
+                            class="checkbox-inner"></span>高新区</label></li>
+                    <li><label class="checkbox-wrap"><input type="checkbox"/><span
+                            class="checkbox-inner"></span>武侯区</label></li>
+                    <li><label class="checkbox-wrap"><input type="checkbox"/><span
+                            class="checkbox-inner"></span>锦江区</label></li>
+                </ul>
+            </div>
+        </div>
+        <div class="right-container">
+            <div id="mapDemo" class="map-content"></div>
+        </div>
+    </div>
+    <div class="tab-panel history-log" id="historyLog">
+        <div class="table-wrap">
+            <div class="oper-btns clearfix">
+                <button class="btn">Current</button>
+                <button class="btn">Last week</button>
+                <button class="btn">Last month</button>
+                <button class="btn">Last year</button>
+                <div class="ta_date align-right">
+                    <span class="date_title" id="dateDemo"></span>
+                    <a class="opt_sel" id="inputTriggerDemo" href="#">
+                         <i class="i_orderd"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="left-container">
+                <table class="history-log-table" width="100%">
+                    <thead>
+                    <tr>
+                        <th>Area</th>
+                        <th>Network type</th>
+                        <th>Nodes name</th>
+                        <th>Usability</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                </table>
+                <div class="popup">
+                    <ul class="region-list">
+                        <li><label class="checkbox-wrap"><input type="checkbox"/><span class="checkbox-inner"></span>全部</label>
+                        </li>
+                        <li><label class="checkbox-wrap"><input type="checkbox"/><span class="checkbox-inner"></span>金牛区</label>
+                        </li>
+                        <li><label class="checkbox-wrap"><input type="checkbox"/><span class="checkbox-inner"></span>青羊区</label>
+                        </li>
+                        <li><label class="checkbox-wrap"><input type="checkbox"/><span class="checkbox-inner"></span>高新区</label>
+                        </li>
+                        <li><label class="checkbox-wrap"><input type="checkbox"/><span class="checkbox-inner"></span>武侯区</label>
+                        </li>
+                        <li><label class="checkbox-wrap"><input type="checkbox"/><span class="checkbox-inner"></span>锦江区</label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="right-container">
+                <table class="details-table">
+                    <thead>
+                    <tr>
+                        <th>Device name</th>
+                        <th>IP address</th>
+                        <th>Usability</th>
+                    </tr>
+                    </thead>
+                    <!--<tbody>-->
+                    <!--<tr>-->
+                        <!--<td>文1号</td>-->
+                        <!--<td>192.168.1.15</td>-->
+                        <!--<td>90%</td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                        <!--<td>文1号</td>-->
+                        <!--<td>192.168.1.15</td>-->
+                        <!--<td>90%</td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                        <!--<td>文1号</td>-->
+                        <!--<td>192.168.1.15</td>-->
+                        <!--<td>90%</td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                        <!--<td>文1号</td>-->
+                        <!--<td>192.168.1.15</td>-->
+                        <!--<td>90%</td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                        <!--<td>文1号</td>-->
+                        <!--<td>192.168.1.15</td>-->
+                        <!--<td>90%</td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                        <!--<td>文1号</td>-->
+                        <!--<td>192.168.1.15</td>-->
+                        <!--<td>90%</td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                        <!--<td>文1号</td>-->
+                        <!--<td>192.168.1.15</td>-->
+                        <!--<td>90%</td>-->
+                    <!--</tr>-->
+                    <!--</tbody>-->
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="js/vendors.js"></script>
+<script src="js/index.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery.dataTables.min.js"></script>
+<script src="js/echarts.min.js"></script>
+<script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="js/dateRange.js"></script>
+<script src="js/fnReloadAjax.js"></script>
+<script>
+    $(document).ready(function () {
+        var $historyLogTable = $('.history-log-table');
+        //切换tab页
+        $(".tabs .tab").click(function () {
+            var _this = $(this);
+            if (_this.hasClass('active')) return;
+            var paneId = _this.find('a').attr('href');
+            if (!paneId) return;
+            $('.tab-content .active').removeClass('active');
+            $('.tabs .active').removeClass('active');
+            $(paneId).addClass('active');
+            _this.addClass('active');
+        });
+        var problemEquipmentTable = $('.problem-equipment-table').DataTable({
+            //开启服务器模式
+            serverSide: true,
+            bRetrieve: true,
+            "ajax": {"url":"data/problem-equipment-data.txt", "dataSrc": "data"},
+
+//            'ajax': {
+//                'url': '/monitor/config/queryConfig',
+//                "dataSrc": "data",
+//
+//                'type': 'GET',
+//            },
+            "paging": false,
+            "searching": false,
+            "info": false,
+            "columns": [
+                {"data": "region"},
+                {"data": "shopId"},
+                {"data": "clientNick"},
+                {"data": "terminalNick"},
+                {"data": "ip"},
+                {
+                    "data": "offTime",
+                    "render":function (data,type,row,meta) {
+                        //处理日期格式
+                        return new Date(data).toLocaleString();
+
+                    }
+                },
+                {   //'状态 （-1 断开 0 正常 1 缓慢）',
+                    "data": "status",
+                    render: function (data, type, row, meta) {
+                        if ($.trim(data) === '1') {
+                            return "缓慢" + '<span class="level1"></span>';
+                        } else if ($.trim(data) === '0'){
+                            return "正常" + '<span class="level2"></span>';
+                        }else {
+                            return "断开" + '<span class="level3"></span>';
+                        }
+                    }
+                }
+            ],
+            "initComplete": function () {
+                $('#problemEquipment').find(".dataTables_wrapper").mCustomScrollbar({
+                    theme: "minimal"
+                });
+            }
+        });
+//        problemEquipmentTable.column( 0 ).search(
+//
+//        ).draw();
+        var historyLogTable = $('.history-log-table').DataTable({
+           // "ajax": "data/history-log-data.txt",
+            //"ajax":"http://192.168.6.95:50001/monitor/config/queryConfig",
+
+            //开启服务器模式
+            bRetrieve: true,
+            serverSide: true,
+            "ajax": {"url":"data/history-log-data.txt", "dataSrc": "data"},
+            "paging": false,
+            "searching": false,
+            "info": false,
+            "columns": [
+                {"data": "region"},
+                {"data": "shopId"},
+                {"data": "nick"},
+                {
+                    "data": "terminalList.0.warningNum",
+                    render: function (data, type, row, meta) {
+                        return '<div class="progress-bar"><span class="progress" style="width:' + data + '%"></span> </div><span>' + data + '%</span> ';
+                    }
+                },
+                {
+                      "data":function (data) {
+                          console.log(data)
+                          return '<a class="view-more" >' + "详情" + '</a>';
+
+                      },
+//                    render: function (data, type, row, meta) {
+//                        var ip =  row.ip
+//                        return '<input type="hidden" name="field＿name" value=row.ip><a class="view-more" href="#" >' + "详情" + '</a>';
+//                    }
+                }
+            ],
+            "initComplete": function () {
+                $('#historyLog').find(".dataTables_wrapper").mCustomScrollbar({
+                    theme: "minimal"
+                });
+            }
+        });
+
+
+
+
+
+          var detailTable = $('.details-table').DataTable({
+
+            //开启服务器模式
+            serverSide: true,
+            "ajax": {"url":"data/detail-data.txt", "dataSrc": "data.0.terminalList"},
+            "paging": false,
+            "searching": false,
+            "info": false,
+            "columns": [
+                {"data":"nick"},
+                {"data":"clientIp"},
+                {"data":"warningNum"}
+            ]
+        })
+
+        $('.history-log-table tbody').on('click','a',function(){
+            var data = historyLogTable.row( $(this).parents('tr') ).data();
+            var table = $('.details-table').dataTable();
+            table.fnReloadAjax("data/detail-data2.txt");
+            //table.fnReloadAjax("/monitor/config/queryConfig?ip="+data.ip);
+
+        })
+
+
+
+        var myChart = echarts.init(document.getElementById('mapDemo'));
+        myChart.setOption({
+            series: [{
+                type: 'map',
+                map: 'chengdu'
+            }]
+        });
+        var data = [
+            {name: '高新区', value: 9},
+            {name: '成华区', value: 12},
+            {name: '金牛区', value: 100}
+        ];
+
+        $.getJSON('./data/chengdu.json', function (data) {
+            echarts.registerMap('chengdu', data);
+            var chart = echarts.init(document.getElementById('mapDemo'));
+            chart.setOption({
+                geo: {
+                    map: 'chengdu',
+                    label: {
+                        emphasis: {
+                            show: false
+                        }
+                    },
+                    roam: true,
+                    itemStyle: {
+                        normal: {
+                            areaColor: '#2c364f',
+                            borderColor: '#1b2540'
+                        },
+                        emphasis: {
+                            areaColor: '#54657e'
+                        }
+                    }
+                }
+
+            });
+        });
+        var dateRange = new pickerDateRange('dateDemo', {
+//            aRecent7Days : 'aRecent7DaysDemo3', //最近7天
+            isTodayValid: false,
+            //startDate : '2013-04-14',
+            //endDate : '2013-04-21',
+            //needCompare : true,
+            //isSingleDay : true,
+            //shortOpr : true,
+            defaultText: ' 至 ',
+            inputTrigger: 'inputTriggerDemo',
+            theme: 'ta',
+            success: function (obj) {
+//                $("#dCon_demo3").html('开始时间 : ' + obj.startDate + '<br/>结束时间 : ' + obj.endDate);
+            }
+        });
+
+
+        var flag = true;
+        $("#area").click(function () {
+            if(flag){
+                $("#areaList").show();
+                flag = false
+            }else {
+                $("#areaList").hide();
+                flag = true;
+            }
+        })
+
+
+
+
+    });
+</script>
+</body>
+</html>

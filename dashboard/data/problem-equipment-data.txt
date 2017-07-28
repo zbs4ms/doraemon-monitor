@@ -1,0 +1,31 @@
+
+{
+  "code": null,
+  "data": [
+    {
+      "deviceType": "WAN",
+      "ip": "127.0.0.1",
+      "terminalNick": "测试",
+      "warningNum": 0,
+      "offTime": 1500367570000,
+      "shopId": "1",
+      "region": "上海",
+      "clientNick": "测试机器",
+      "status": 0
+    },
+    {
+      "deviceType": "WAN",
+      "ip": "127.0.0.1",
+      "terminalNick": "测试",
+      "warningNum": 0,
+      "offTime": 1500367570000,
+      "shopId": "1",
+      "region": "上海",
+      "clientNick": "测试机器",
+      "status": 1
+
+    }
+  ],
+  "success": true,
+  "message": null
+}

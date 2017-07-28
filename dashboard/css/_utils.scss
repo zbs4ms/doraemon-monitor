@@ -1,0 +1,7 @@
+@mixin progressbar($width,$bgColor) {
+  height: 10px;
+  border-radius: 5px;
+  background-color: $bgColor;
+  width: $width;
+  display: inline-block;
+}
