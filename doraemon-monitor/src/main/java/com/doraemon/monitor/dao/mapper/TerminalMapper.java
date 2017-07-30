@@ -18,7 +18,7 @@ public interface TerminalMapper extends MyMapper<Terminal> {
     @Update({"update terminal set off_time=null,warning_num=0 where client_ip=#{clientIp} and terminal_ip=#{terminalIp}"})
     int recovery(TerminalKey terminalkey);
 
-    @Update({"update terminal set off_time=#{offTime} where client_ip=#{clientIp} and terminal_ip=#{terminalIp}"})
+    @Update({"update terminal set warning_num=1, off_time=#{offTime} where client_ip=#{clientIp} and terminal_ip=#{terminalIp}"})
     int disconnect(Terminal terminal);
 
     @Update({"update terminal set warning_num=warning_num+1 where client_ip=#{clientIp} and terminal_ip=#{terminalIp}"})
