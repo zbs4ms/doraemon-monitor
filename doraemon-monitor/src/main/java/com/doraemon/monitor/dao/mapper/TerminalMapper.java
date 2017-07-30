@@ -27,6 +27,10 @@ public interface TerminalMapper extends MyMapper<Terminal> {
     @Select({"select * from terminal where client_ip=#{clientIp}"})
     List<Terminal> selectByclientIp(String clientIp);
 
+    //add by csrr 去除掉线时间为空的。。
+    @Select({"select * from terminal where client_ip=#{clientIp} and off_time is not null"})
+    List<Terminal> selectByClientIpOffTime(String clientIp);
+
     @Select({"select * from terminal where client_ip=#{clientIp} and terminal_ip=#{terminalIp}"})
     Terminal selectByClientIpAndTerminalIp(Terminal terminal);
 }
