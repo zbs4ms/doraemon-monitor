@@ -34,6 +34,11 @@ public class DateTool {
         return new DateBean(startCalendar.getTime(), stopCalendar.getTime());
     }
 
+    public static void main(String[] args) throws Exception {
+        DateBean dateBean = DateTool.create().getLastWeek();
+        System.out.print(DateTool.create().diffDay(dateBean.getStartDate(),dateBean.getStopDate()));
+    }
+
     public DateBean getLastMonth() {
         Calendar lastMonthCalendar = Calendar.getInstance();
         lastMonthCalendar.add(Calendar.MONTH, -1);
@@ -88,7 +93,7 @@ public class DateTool {
 
     public long diffDay(Date startDate, Date endDate) {
         long diff = endDate.getTime() - startDate.getTime();
-        return diff / nd == 0 ? 1 : diff / nd;
+        return diff / nd == 0 ? 1 : (diff / nd) +1;
     }
 
 
