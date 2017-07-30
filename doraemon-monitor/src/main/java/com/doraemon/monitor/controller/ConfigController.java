@@ -84,6 +84,7 @@ public class ConfigController extends BaseController {
     public JSONObject queryTerminalList(@ApiParam(value = "客户端IP",required = false) @RequestParam(value = "ip",required = false) String ip) throws Exception {
         List<Client> clientList = new ArrayList<Client>();
         if(ip == null) {
+            //csrr
             clientList = configService.queryClientAll();
         }else {
             clientList.add(configService.queryClient(ip));
