@@ -60,7 +60,8 @@ public class ConfigService {
      * @return
      */
     private List<Terminal> queryTerminal(String ip) {
-        List<Terminal> list =  terminalMapper.selectByclientIp(ip);
+        //by csrr
+        List<Terminal> list =  terminalMapper.selectByClientIpOffTime(ip);
         return list;
     }
 
