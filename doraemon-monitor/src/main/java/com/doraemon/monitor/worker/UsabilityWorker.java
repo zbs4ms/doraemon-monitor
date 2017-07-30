@@ -39,7 +39,8 @@ public class UsabilityWorker {
      *
      * @throws Exception
      */
-    @Scheduled(cron = "0 0 1 1 1 ?")
+   // @Scheduled(cron = "0 0 1 1 1 ?")
+    @Scheduled(cron = "*/30 * * * * ?")
     public void lastYearUsability() throws Exception {
         DateTool.DateBean dateBean = DateTool.create().getLastYear();
         log.info("统计上年的数据,时间段:  开始时间=" + dateBean.getStartDate() + "  结束时间:" + dateBean.getStopDate());
@@ -51,7 +52,8 @@ public class UsabilityWorker {
      *
      * @throws Exception
      */
-    @Scheduled(cron = "0 0 1 1 * ?")
+   // @Scheduled(cron = "0 0 1 1 * ?")
+    @Scheduled(cron = "*/20 * * * * ?")
     public void lastMonthUsability() throws Exception {
         DateTool.DateBean dateBean = DateTool.create().getLastWeek();
         log.info("统计上个月的数据,时间段:  开始时间=" + dateBean.getStartDate() + "  结束时间:" + dateBean.getStopDate());
@@ -63,7 +65,8 @@ public class UsabilityWorker {
      *
      * @throws Exception
      */
-    @Scheduled(cron = "0 0 1 ? * MON")
+   // @Scheduled(cron = "0 0 1 ? * MON")
+    @Scheduled(cron = "*/10 * * * * ?")
     public void lastWeeksUsability() throws Exception {
         DateTool.DateBean dateBean = DateTool.create().getLastWeek();
         log.info("统计上周的数据,时间段:  开始时间=" + dateBean.getStartDate() + "  结束时间:" + dateBean.getStopDate());
