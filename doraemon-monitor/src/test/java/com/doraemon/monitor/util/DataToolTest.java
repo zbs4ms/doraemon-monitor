@@ -8,7 +8,7 @@ import org.junit.Test;
 public class DataToolTest {
 
     @Test
-    public void test(){
+    public void test() throws Exception {
         DateTool.DateBean dateBean = DateTool.create().getLastDay();
         System.out.println(dateBean.getStartDate());
         System.out.println(dateBean.getStopDate());

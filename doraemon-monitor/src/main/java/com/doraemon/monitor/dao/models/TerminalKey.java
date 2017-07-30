@@ -10,4 +10,10 @@ public class TerminalKey {
     @Id
     private String terminalIp;
 
+    public TerminalKey(){}
+    public TerminalKey(String clientIp,String terminalIp){
+        this.clientIp = clientIp;
+        this.terminalIp = terminalIp;
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.doraemon.monitor.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.doraemon.monitor.controller.base.BaseController;
@@ -88,6 +89,7 @@ public class ConfigController extends BaseController {
             clientList.add(configService.queryClient(ip));
         }
         List<TerminalPro> terminalProList = new ArrayList<>();
+        log.info("查询出的终端原始信息+"+ JSON.toJSONString(terminalProList));
         for(Client client : clientList){
             for(Terminal terminal : client.getTerminalList()){
                 TerminalPro terminalPro = new TerminalPro(client,terminal);

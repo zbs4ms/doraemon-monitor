@@ -8,6 +8,7 @@ import com.doraemon.monitor.dao.models.Client;
 import com.doraemon.monitor.dao.models.MonitorLog;
 import com.doraemon.monitor.service.CountService;
 import com.doraemon.monitor.service.MessageSerive;
+import com.doraemon.monitor.service.UsabilityService;
 import com.doraemon.monitor.util.DateTool;
 import com.github.pagehelper.PageInfo;
 import com.us.base.util.tool.IpTool;
@@ -35,6 +36,8 @@ public class MessageController extends BaseController {
     MessageSerive messageSerive;
     @Autowired
     CountService countService;
+    @Autowired
+    UsabilityService usabilityService;
 
     @ApiOperation(value = "传入报文")
     @RequestMapping(value = "addMessage", method = RequestMethod.POST)
@@ -87,7 +90,8 @@ public class MessageController extends BaseController {
             default:
                 throw new Exception("错误的类型");
         }
-        PageInfo<Client> monitorPage = countService.totalClientErrorTime(ip,dateBean.getStartDate(),dateBean.getStopDate(),PagePro.create(page,row));
-        return ResponseWrapper().addData(monitorPage).ExeSuccess();
+        //PageInfo<Client> monitorPage = countService.totalClientErrorTime(ip,dateBean.getStartDate(),dateBean.getStopDate(),PagePro.create(page,row));
+        List<Client> clientList = usabilityService.selectClientUsability(ip,dateBean,dateType);
+        return ResponseWrapper().addData(clientList).ExeSuccess();
     }
 }

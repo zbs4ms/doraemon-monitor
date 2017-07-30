@@ -128,15 +128,15 @@ public class CountService {
     private BigDecimal usability(BigDecimal errorTime, BigDecimal deviceNumber, BigDecimal days) {
         BigDecimal one = errorTime;
         if (one.equals(BigDecimal.ZERO))
-            return BigDecimal.ZERO;
-        BigDecimal two = BigDecimalCount.multiply(deviceNumber, new BigDecimal(600), days);
+            return BigDecimal.ONE.subtract(one);
+        BigDecimal two = BigDecimalCount.multiply(deviceNumber, new BigDecimal(1440), days);
         if (two.equals(BigDecimal.ZERO)) {
             log.warn("[警告]可用值计算公式中分母为0. 异常时间=" + errorTime + ",设备台数=" + deviceNumber + ",统计天数=" + days);
             return BigDecimal.ZERO;
         }
         BigDecimal value = one.divide(two, 2, BigDecimal.ROUND_HALF_EVEN);
         log.info("统计可用性:异常时间=" + errorTime + ",设备台数=" + deviceNumber + ",统计天数=" + days + ",可用性:" + one + "/" + two + "=" + value);
-        return value;
+        return BigDecimal.ONE.subtract(value);
     }
 
     /**
@@ -173,7 +173,7 @@ public class CountService {
         //如果最后还有没被移除掉的,也就是统计的时候还未恢复的,按当前时间来计算断开的时间总数.
         for (Map.Entry<String, MonitorLog> entry : errorTerminal.entrySet()) {
             MonitorLog monitorLog = entry.getValue();
-            total(clientErrorTime, terminalErrorTime, monitorLog.getClientIp(), getTerminalKey(monitorLog), timeDifference(startDate, new Date()));
+            total(clientErrorTime, terminalErrorTime, monitorLog.getClientIp(), getTerminalKey(monitorLog), timeDifference(startDate, stopDate));
             errorTerminal.remove(getTerminalKey(monitorLog));
         }
         return new DisconnectTimeBean(clientErrorTime, terminalErrorTime);
