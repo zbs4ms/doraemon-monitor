@@ -83,24 +83,11 @@ public class MessageSerive {
         switch (messagePro.getStatus()){
             case "-1":
                 //第一次断开更新断开时间
-                if(terminal.getOffTime() == null) {
+                if(terminal.getOffTime() == null || terminal.getWarningNum() == null || terminal.getWarningNum()<Common.SMS_NUMBER) {
                     Terminal updateTerminal = new Terminal(updateTerminalKey);
                     updateTerminal.setOffTime(messagePro.getTime());
                     terminalMapper.disconnect(updateTerminal);
-                }else{
-                    //如果告警次数没有超过1次,进行告警,并增加1次告警记录
-                    if(terminal.getWarningNum()!=null && terminal.getWarningNum()<=1){
-                        terminalMapper.warning(updateTerminalKey);
-                        String shopId = client.getShopId();
-                        String msgType = Common.SMS_TYPE;
-                        String phone = terminal.getPhone();
-                        String data =client.getNick()+"$"+terminal.getNick()+"$("+client.getIp()+")"+"中断,请检查并修复";
-                        //todo:怎么告警呢?
-                        String param = "shopId="+shopId+"&msgType="+msgType+"&phone="+phone+"&data="+data;
-                        log.info("调用短信接口进行告警:",Common.SMS_URL+"?"+param);
-                        String result =  HttpAgent.create().sendPost(Common.SMS_URL,param);
-                        log.info("短信接口返回数据:"+result);
-                    }
+                    sendSMS(terminal.getPhone(),client.getNick(),terminal.getNick(),client.getIp());
                 }
                 break;
             default:
@@ -110,6 +97,15 @@ public class MessageSerive {
         }
     }
 
+
+    private void sendSMS( String phone,String clientNick,String terminalNick,String clientIp) throws Exception {
+        String data =clientNick+"$"+terminalNick+"$("+clientIp+")"+"中断,请检查并修复";
+        //todo:怎么告警呢?
+        String param = "shopId="+Common.SMS_shopId+"&msgType="+Common.SMS_TYPE+"&phone="+phone+"&data="+data;
+        log.info("调用短信接口进行告警:",Common.SMS_URL+"?"+param);
+        String result =  HttpAgent.create().sendPost(Common.SMS_URL,param);
+        log.info("短信接口返回数据:"+result);
+    }
 
 
     /**
