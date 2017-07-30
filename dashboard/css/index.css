@@ -299,6 +299,7 @@ body {
     margin-left: 10%;
     padding: 20px; }
   .history-log .view-more {
+    cursor:pointer;
     color: #20a0ff; }
   .history-log .progress-bar {
     margin-right: 10px;

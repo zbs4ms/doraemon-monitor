@@ -57,10 +57,15 @@
     <div class="tab-panel history-log" id="historyLog">
         <div class="table-wrap">
             <div class="oper-btns clearfix">
-                <button class="btn">Current</button>
-                <button class="btn">Last week</button>
-                <button class="btn">Last month</button>
-                <button class="btn">Last year</button>
+
+                <button class="btn" id = "D">Current</button>
+                <button class="btn" id = "W">Last week</button>
+                <button class="btn" id = "M">Last month</button>
+                <button class="btn" id = "Y">Last year</button>
+                <!--<button class="btn" id = "currentButton">Current</button>-->
+                <!--<button class="btn" id = "weekButton">Last week</button>-->
+                <!--<button class="btn" id = "monthButton">Last month</button>-->
+                <!--<button class="btn" id = "yearButton">Last year</button>-->
                 <div class="ta_date align-right">
                     <span class="date_title" id="dateDemo"></span>
                     <a class="opt_sel" id="inputTriggerDemo" href="#">
@@ -73,7 +78,6 @@
                     <thead>
                     <tr>
                         <th>Area</th>
-                        <th>Network type</th>
                         <th>Nodes name</th>
                         <th>Usability</th>
                         <th></th>
@@ -106,43 +110,6 @@
                         <th>Usability</th>
                     </tr>
                     </thead>
-                    <!--<tbody>-->
-                    <!--<tr>-->
-                        <!--<td>文1号</td>-->
-                        <!--<td>192.168.1.15</td>-->
-                        <!--<td>90%</td>-->
-                    <!--</tr>-->
-                    <!--<tr>-->
-                        <!--<td>文1号</td>-->
-                        <!--<td>192.168.1.15</td>-->
-                        <!--<td>90%</td>-->
-                    <!--</tr>-->
-                    <!--<tr>-->
-                        <!--<td>文1号</td>-->
-                        <!--<td>192.168.1.15</td>-->
-                        <!--<td>90%</td>-->
-                    <!--</tr>-->
-                    <!--<tr>-->
-                        <!--<td>文1号</td>-->
-                        <!--<td>192.168.1.15</td>-->
-                        <!--<td>90%</td>-->
-                    <!--</tr>-->
-                    <!--<tr>-->
-                        <!--<td>文1号</td>-->
-                        <!--<td>192.168.1.15</td>-->
-                        <!--<td>90%</td>-->
-                    <!--</tr>-->
-                    <!--<tr>-->
-                        <!--<td>文1号</td>-->
-                        <!--<td>192.168.1.15</td>-->
-                        <!--<td>90%</td>-->
-                    <!--</tr>-->
-                    <!--<tr>-->
-                        <!--<td>文1号</td>-->
-                        <!--<td>192.168.1.15</td>-->
-                        <!--<td>90%</td>-->
-                    <!--</tr>-->
-                    <!--</tbody>-->
                 </table>
             </div>
         </div>
@@ -158,10 +125,12 @@
 <script src="js/dateRange.js"></script>
 <script src="js/fnReloadAjax.js"></script>
 <script>
+
+
+
     $(document).ready(function () {
 
 
-        var base_url = "http://39.108.117.235:50001";
         var $historyLogTable = $('.history-log-table');
         //切换tab页
         $(".tabs .tab").click(function () {
@@ -178,7 +147,7 @@
             //开启服务器模式
             serverSide: true,
             bRetrieve: true,
-//            "ajax": {"url":"data/problem-equipment-data.txt", "dataSrc": "data"},
+            //"ajax": {"url":"data/problem-equipment-data.txt", "dataSrc": "data"},
 
             'ajax': {
                 'url': '/monitor/config/queryConfig',
@@ -189,9 +158,10 @@
             "paging": false,
             "searching": false,
             "info": false,
+            "bFilter": true,
             "columns": [
                 {"data": "region"},
-                {"data": "shopId"},
+                {"data": "deviceType"},
                 {"data": "clientNick"},
                 {"data": "terminalNick"},
                 {"data": "ip"},
@@ -199,7 +169,11 @@
                     "data": "offTime",
                     "render":function (data,type,row,meta) {
                         //处理日期格式
-                        return new Date(data).toLocaleString();
+                        if(data !== null){
+                            return new Date(data).toLocaleString();
+                        }else {
+                            return "null"
+                        }
 
                     }
                 },
@@ -222,41 +196,33 @@
                 });
             }
         });
-//        problemEquipmentTable.column( 0 ).search(
-//
-//        ).draw();
+
         var historyLogTable = $('.history-log-table').DataTable({
-           // "ajax": "data/history-log-data.txt",
-            //"ajax":"http://39.108.117.235:50001/monitor/config/queryConfig",
+
 
             //开启服务器模式
             bRetrieve: true,
             serverSide: true,
-           // "ajax": {"url":"data/history-log-data.txt", "dataSrc": "data"},
-            "ajax": {"url":"/monitor/config/queryConfig", "dataSrc": "data"},
+           // "ajax": {"url":"data/detail-data.txt", "dataSrc": "data"},
+            "ajax": {"url":"/monitor/message/queryUsability?dateType=D", "dataSrc": "data"},
             "paging": false,
             "searching": false,
             "info": false,
             "columns": [
                 {"data": "region"},
-                {"data": "shopId"},
                 {"data": "nick"},
                 {
-                    "data": "terminalList.0.warningNum",
+                    "data": "clientUsability",
                     render: function (data, type, row, meta) {
-                        return '<div class="progress-bar"><span class="progress" style="width:' + data + '%"></span> </div><span>' + data + '%</span> ';
+                        return '<div class="progress-bar"><span class="progress" style="width:' + data*100  + '%"></span> </div><span>' + data * 100 + '%</span> ';
                     }
                 },
                 {
                       "data":function (data) {
-                          console.log(data)
                           return '<a class="view-more" >' + "详情" + '</a>';
 
                       },
-//                    render: function (data, type, row, meta) {
-//                        var ip =  row.ip
-//                        return '<input type="hidden" name="field＿name" value=row.ip><a class="view-more" href="#" >' + "详情" + '</a>';
-//                    }
+
                 }
             ],
             "initComplete": function () {
@@ -274,14 +240,14 @@
 
             //开启服务器模式
             serverSide: true,
-            "ajax": {"url":"data/detail-data.txt", "dataSrc": "data.0.terminalList"},
+            "ajax": {"url":"/monitor/message/queryUsability?dateType=D", "dataSrc": "data.0.terminalList"},
             "paging": false,
             "searching": false,
             "info": false,
             "columns": [
                 {"data":"nick"},
                 {"data":"clientIp"},
-                {"data":"warningNum"}
+                {"data":"terminalUsability"}
             ]
         })
 
@@ -289,10 +255,17 @@
             var data = historyLogTable.row( $(this).parents('tr') ).data();
             var table = $('.details-table').dataTable();
             //table.fnReloadAjax("data/detail-data2.txt");
-            table.fnReloadAjax("/monitor/config/queryConfig?ip="+data.ip);
+            table.fnReloadAjax("/monitor/message/queryUsability?dateType=D&ip="+data.ip);
 
         })
 
+        //年月星期日 按钮点击时间
+        $(".btn").on('click',function(){
+
+            var table = $('.history-log-table').dataTable();
+            table.fnReloadAjax("/monitor/message/queryUsability?dateType="+$(this).attr("id"))
+
+        })
 
 
         var myChart = echarts.init(document.getElementById('mapDemo'));
@@ -360,6 +333,7 @@
                 flag = true;
             }
         })
+
 
 
 

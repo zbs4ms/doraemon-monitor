@@ -2,39 +2,46 @@
   "code": null,
   "data": [
     {
-      "nick": "测试机器",
-      "ip": "127.0.0.1",
-      "shopId": "1",
-      "region": "上海",
+      "nick": "我的客户端",
+      "ip": "39.108.117.235",
+      "shopId": "A1101",
+      "region": "高新区",
       "terminalList": [
         {
           "deviceType": "WAN",
-          "nick": "周彬杉",
-          "clientIp": "127.0.0.1",
-          "warningNum": 0,
+          "nick": "不会通的IP",
+          "terminalUsability": 0,
+          "phone": "13678113250",
+          "clientIp": "39.108.117.235",
+          "warningNum": null,
+          "offTime": 1501405680000,
+          "status": "-1",
+          "terminalIp": "10.90.1.1"
+        },
+        {
+          "deviceType": "WAN",
+          "nick": "会通的IP",
+          "terminalUsability": 1,
+          "phone": "13678113250",
+          "clientIp": "39.108.117.235",
+          "warningNum": null,
           "offTime": null,
           "status": "0",
-          "terminalIp": "127.0.0.1"
+          "terminalIp": "127.0.0.2"
         },
         {
           "deviceType": "WAN",
-          "nick": "测试不过",
-          "clientIp": "127.0.0.1",
+          "nick": "乱写的IP",
+          "terminalUsability": 1,
+          "phone": "13678113250",
+          "clientIp": "39.108.117.235",
           "warningNum": 0,
           "offTime": null,
-          "status": null,
-          "terminalIp": "192.168.6.58"
-        },
-        {
-          "deviceType": "WAN",
-          "nick": "陈世荣",
-          "clientIp": "127.0.0.1",
-          "warningNum": 0,
-          "offTime": null,
-          "status": null,
-          "terminalIp": "192.168.6.59"
+          "status": "1",
+          "terminalIp": "87.99.0.1"
         }
-      ]
+      ],
+      "clientUsability": 0.67
     }
   ],
   "success": true,

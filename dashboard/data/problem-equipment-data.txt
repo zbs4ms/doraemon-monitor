@@ -1,4 +1,3 @@
-
 {
   "code": null,
   "data": [
@@ -7,23 +6,99 @@
       "ip": "127.0.0.1",
       "terminalNick": "测试",
       "warningNum": 0,
-      "offTime": 1500367570000,
+      "offTime": null,
       "shopId": "1",
       "region": "上海",
-      "clientNick": "测试机器",
-      "status": 0
+      "clientNick": "客户机1",
+      "status": "0"
     },
     {
       "deviceType": "WAN",
       "ip": "127.0.0.1",
       "terminalNick": "测试",
-      "warningNum": 0,
-      "offTime": 1500367570000,
+      "warningNum": 2,
+      "offTime": 1500998636000,
       "shopId": "1",
       "region": "上海",
-      "clientNick": "测试机器",
+      "clientNick": "客户机1",
+      "status": "-1"
+    },
+    {
+      "deviceType": "WAN",
+      "ip": "192.168.199.118",
+      "terminalNick": "测试",
+      "warningNum": null,
+      "offTime": null,
+      "shopId": "2",
+      "region": "四川",
+      "clientNick": "客户机2",
       "status": 1
-
+    },
+    {
+      "deviceType": "WAN",
+      "ip": "192.168.199.118",
+      "terminalNick": "测试",
+      "warningNum": null,
+      "offTime": null,
+      "shopId": "2",
+      "region": "四川",
+      "clientNick": "客户机2",
+      "status": null
+    },
+    {
+      "deviceType": "WAN",
+      "ip": "192.168.6.108",
+      "terminalNick": "乱写的",
+      "warningNum": null,
+      "offTime": null,
+      "shopId": "#1234",
+      "region": "四川",
+      "clientNick": "测试机器",
+      "status": null
+    },
+    {
+      "deviceType": "WAN",
+      "ip": "192.168.6.108",
+      "terminalNick": "不知道是谁",
+      "warningNum": null,
+      "offTime": null,
+      "shopId": "#1234",
+      "region": "四川",
+      "clientNick": "测试机器",
+      "status": null
+    },
+    {
+      "deviceType": "WAN",
+      "ip": "192.168.6.108",
+      "terminalNick": "自己",
+      "warningNum": null,
+      "offTime": null,
+      "shopId": "#1234",
+      "region": "四川",
+      "clientNick": "测试机器",
+      "status": null
+    },
+    {
+      "deviceType": "WAN",
+      "ip": "192.168.6.86",
+      "terminalNick": "测试",
+      "warningNum": null,
+      "offTime": null,
+      "shopId": "3",
+      "region": "贵阳",
+      "clientNick": "客户机3",
+      "status": null
+    },
+    {
+      "deviceType": "WAN",
+      "ip": "192.168.6.86",
+      "terminalNick": "测试",
+      "warningNum": null,
+      "offTime": null,
+      "shopId": "3",
+      "region": "贵阳",
+      "clientNick": "客户机3",
+      "status": null
     }
   ],
   "success": true,
