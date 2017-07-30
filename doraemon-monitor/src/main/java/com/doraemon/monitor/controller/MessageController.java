@@ -42,9 +42,9 @@ public class MessageController extends BaseController {
     @ApiOperation(value = "传入报文")
     @RequestMapping(value = "addMessage", method = RequestMethod.POST)
     @ResponseBody
-    public JSONObject addMessage(@ApiParam(value = "子IP情况 map的key为子IP", required = true) @RequestParam(value = "message", required = true) String message,HttpServletRequest request) throws Exception {
-        //获取请求者的IP
-        String ip = IpTool.getIp(request);
+    public JSONObject addMessage(@ApiParam(value = "子IP情况 map的key为子IP", required = true) @RequestParam(value = "message", required = true) String message
+                                ,@ApiParam(value = "客户端标识IP", required = true) @RequestParam(value = "ip", required = true) String ip
+                                ,HttpServletRequest request) throws Exception {
         List<MessagePro> messageProList = JSONObject.parseArray(message,MessagePro.class);
         messageSerive.add(messageProList,ip);
         return ResponseWrapper().addData("ok").ExeSuccess();
