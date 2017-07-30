@@ -256,20 +256,20 @@ body {
 .problem-equipment .level1 {
   height: 10px;
   border-radius: 5px;
-  background-color: #d2335c;
+  background-color: #FF9948;
   width: 48px;
   display: inline-block; }
 .problem-equipment .level2 {
   height: 10px;
   border-radius: 5px;
-  background-color: #ff9948;
+  background-color: #C6FA91 ;
   width: 48px;
   display: inline-block; }
 
 .problem-equipment .level3 {
   height: 10px;
   border-radius: 5px;
-  background-color: pink;
+  background-color: #FE3B6D;
   width: 48px;
   display: inline-block; }
 
