@@ -88,13 +88,13 @@ public class MessageSerive {
                     updateTerminal.setOffTime(messagePro.getTime());
                     terminalMapper.disconnect(updateTerminal);
                 }else{
-                    //如果告警次数没有超过3次,进行告警,并增加1次告警记录
-                    if(terminal.getWarningNum()<=1){
+                    //如果告警次数没有超过1次,进行告警,并增加1次告警记录
+                    if(terminal.getWarningNum()!=null && terminal.getWarningNum()<=1){
                         terminalMapper.warning(updateTerminalKey);
                         String shopId = client.getShopId();
                         String msgType = Common.SMS_TYPE;
                         String phone = terminal.getPhone();
-                        String data = "测试告警短信";
+                        String data =client.getNick()+"$"+terminal.getNick()+"$("+client.getIp()+")"+"中断,请检查并修复";
                         //todo:怎么告警呢?
                         String param = "shopId="+shopId+"&msgType="+msgType+"&phone="+phone+"&data="+data;
                         log.info("调用短信接口进行告警:",Common.SMS_URL+"?"+param);

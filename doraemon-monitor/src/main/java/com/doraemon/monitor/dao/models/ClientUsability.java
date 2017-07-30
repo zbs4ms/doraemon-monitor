@@ -3,10 +3,11 @@ package com.doraemon.monitor.dao.models;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 
-import javax.persistence.IdClass;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by zbs on 2017/7/26.
@@ -20,6 +21,9 @@ public class ClientUsability {
     String timeType;
     String clientIp;
     BigDecimal usability;
+
+    @Transient
+    List<TerminalUsability> terminalUsabilityList;
 
     public ClientUsability(){}
     public ClientUsability(Long id,Date statisticalTime,String timeType,String clientIp,BigDecimal usability){

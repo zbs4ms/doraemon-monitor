@@ -8,6 +8,7 @@ import com.doraemon.monitor.dao.models.Client;
 import com.doraemon.monitor.dao.models.MonitorLog;
 import com.doraemon.monitor.service.CountService;
 import com.doraemon.monitor.service.MessageSerive;
+import com.doraemon.monitor.service.UsabilityService;
 import com.doraemon.monitor.util.DateTool;
 import com.github.pagehelper.PageInfo;
 import com.us.base.util.tool.IpTool;
@@ -35,13 +36,15 @@ public class MessageController extends BaseController {
     MessageSerive messageSerive;
     @Autowired
     CountService countService;
+    @Autowired
+    UsabilityService usabilityService;
 
     @ApiOperation(value = "传入报文")
     @RequestMapping(value = "addMessage", method = RequestMethod.POST)
     @ResponseBody
-    public JSONObject addMessage(@ApiParam(value = "子IP情况 map的key为子IP", required = true) @RequestParam(value = "message", required = true) String message,HttpServletRequest request) throws Exception {
-        //获取请求者的IP
-        String ip = IpTool.getIp(request);
+    public JSONObject addMessage(@ApiParam(value = "子IP情况 map的key为子IP", required = true) @RequestParam(value = "message", required = true) String message
+                                ,@ApiParam(value = "客户端标识IP", required = true) @RequestParam(value = "ip", required = true) String ip
+                                ,HttpServletRequest request) throws Exception {
         List<MessagePro> messageProList = JSONObject.parseArray(message,MessagePro.class);
         messageSerive.add(messageProList,ip);
         return ResponseWrapper().addData("ok").ExeSuccess();
@@ -87,7 +90,8 @@ public class MessageController extends BaseController {
             default:
                 throw new Exception("错误的类型");
         }
-        PageInfo<Client> monitorPage = countService.totalClientErrorTime(ip,dateBean.getStartDate(),dateBean.getStopDate(),PagePro.create(page,row));
-        return ResponseWrapper().addData(monitorPage).ExeSuccess();
+        //PageInfo<Client> monitorPage = countService.totalClientErrorTime(ip,dateBean.getStartDate(),dateBean.getStopDate(),PagePro.create(page,row));
+        List<Client> clientList = usabilityService.selectClientUsability(ip,dateBean,dateType);
+        return ResponseWrapper().addData(clientList).ExeSuccess();
     }
 }

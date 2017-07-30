@@ -18,7 +18,7 @@
         <repository>
             <id>us project private nexus</id>
             <name>us project private nexus</name>
-            <url>http://192.168.81.14:8081/nexus/content/groups/public</url>
+            <url>http://182.92.78.118:8081/repository/maven-public</url>
         </repository>
     </repositories>
     <dependencies>

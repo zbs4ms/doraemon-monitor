@@ -37,3 +37,7 @@ mybatis:
         beanPath: com.doraemon.monitor.dao.models
         mapperXmlPath: classpath:mapper/*.xml
         mapperPath: com.doraemon.monitor.dao.mapper
+
+usability:
+  #lastDayCron: "0 0 1 * * ? "
+  lastDayCron: "0 */1 * * * *"

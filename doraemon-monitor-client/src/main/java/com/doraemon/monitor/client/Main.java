@@ -24,9 +24,14 @@ public class Main implements CommandLineRunner {
 
     @Autowired
     UpdateConfigService updateConfigService;
+    public static String LOCAL_IP = null;
 
 
     public static void main(String[] args) throws Exception {
+        if(args == null || args.length<1 ||args[0].equals(""))
+            throw new Exception("必须指定本机的标识是.");
+        System.out.println("本机标标识为 ---> "+args[0]);
+        LOCAL_IP = args[0];
         SpringApplication app = new SpringApplication(Main.class);
         app.run();
     }

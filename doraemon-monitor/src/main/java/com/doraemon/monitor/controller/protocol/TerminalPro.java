@@ -26,7 +26,7 @@ public class TerminalPro {
 
     private Date offTime;
 
-    private int warningNum;
+    private Integer warningNum;
 
     private String status;
 
@@ -35,10 +35,12 @@ public class TerminalPro {
         this.setClientNick(client.getNick());
         this.setRegion(client.getRegion());
         this.setShopId(client.getShopId());
-        this.setTerminalNick(terminal.getNick());
-        this.setDeviceType(terminal.getDeviceType());
-        this.setOffTime(terminal.getOffTime());
-        this.setWarningNum(terminal.getWarningNum());
-        this.setStatus(terminal.getStatus());
+        if(terminal != null) {
+            this.setTerminalNick(terminal.getNick());
+            this.setDeviceType(terminal.getDeviceType());
+            this.setOffTime(terminal.getOffTime());
+            this.setWarningNum(terminal.getWarningNum());
+            this.setStatus(terminal.getStatus());
+        }
     }
 }
