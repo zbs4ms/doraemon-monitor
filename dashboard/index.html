@@ -9,7 +9,7 @@
     <link href="css/dateRange.css" rel="stylesheet"/>
     <link href="css/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
     <link href="css/index.css" rel="stylesheet"/>
-    <title>Document</title>
+    <title>Monitoring System </title>
 </head>
 <body>
 <ul class="tabs clearfix">
@@ -50,9 +50,9 @@
                 </ul>
             </div>
         </div>
-        <div class="right-container">
-            <div id="mapDemo" class="map-content"></div>
-        </div>
+        <!--<div class="right-container">-->
+            <!--<div id="mapDemo" class="map-content"></div>-->
+        <!--</div>-->
     </div>
     <div class="tab-panel history-log" id="historyLog">
         <div class="table-wrap">
@@ -150,7 +150,7 @@
             //"ajax": {"url":"data/problem-equipment-data.txt", "dataSrc": "data"},
 
             'ajax': {
-                'url': '/monitor/config/queryConfig',
+                'url': '/monitor/config/queryTerminalList',
                 "dataSrc": "data",
 
                 'type': 'GET',
@@ -159,6 +159,7 @@
             "searching": false,
             "info": false,
             "bFilter": true,
+            "sZeroRecords": "对不起，没有数据",
             "columns": [
                 {"data": "region"},
                 {"data": "deviceType"},
@@ -208,6 +209,7 @@
             "paging": false,
             "searching": false,
             "info": false,
+            "sZeroRecords": "对不起，没有数据",
             "columns": [
                 {"data": "region"},
                 {"data": "nick"},
@@ -244,7 +246,9 @@
             "paging": false,
             "searching": false,
             "info": false,
-            "columns": [
+            "sZeroRecords": "对不起，没有数据",
+
+              "columns": [
                 {"data":"nick"},
                 {"data":"clientIp"},
                 {"data":"terminalUsability"}
@@ -263,49 +267,51 @@
         $(".btn").on('click',function(){
 
             var table = $('.history-log-table').dataTable();
+            //var table_detail = $('.details-table').dataTable()
             table.fnReloadAjax("/monitor/message/queryUsability?dateType="+$(this).attr("id"))
+            //table_detail.fnReloadAjax("/monitor/message/queryUsability?dateType="+$(this).attr("id"))
 
         })
 
 
-        var myChart = echarts.init(document.getElementById('mapDemo'));
-        myChart.setOption({
-            series: [{
-                type: 'map',
-                map: 'chengdu'
-            }]
-        });
+//        var myChart = echarts.init(document.getElementById('mapDemo'));
+//        myChart.setOption({
+//            series: [{
+//                type: 'map',
+//                map: 'chengdu'
+//            }]
+//        });
         var data = [
             {name: '高新区', value: 9},
             {name: '成华区', value: 12},
             {name: '金牛区', value: 100}
         ];
 
-        $.getJSON('./data/chengdu.json', function (data) {
-            echarts.registerMap('chengdu', data);
-            var chart = echarts.init(document.getElementById('mapDemo'));
-            chart.setOption({
-                geo: {
-                    map: 'chengdu',
-                    label: {
-                        emphasis: {
-                            show: false
-                        }
-                    },
-                    roam: true,
-                    itemStyle: {
-                        normal: {
-                            areaColor: '#2c364f',
-                            borderColor: '#1b2540'
-                        },
-                        emphasis: {
-                            areaColor: '#54657e'
-                        }
-                    }
-                }
-
-            });
-        });
+//        $.getJSON('./data/chengdu.json', function (data) {
+//            echarts.registerMap('chengdu', data);
+//            var chart = echarts.init(document.getElementById('mapDemo'));
+//            chart.setOption({
+//                geo: {
+//                    map: 'chengdu',
+//                    label: {
+//                        emphasis: {
+//                            show: false
+//                        }
+//                    },
+//                    roam: true,
+//                    itemStyle: {
+//                        normal: {
+//                            areaColor: '#2c364f',
+//                            borderColor: '#1b2540'
+//                        },
+//                        emphasis: {
+//                            areaColor: '#54657e'
+//                        }
+//                    }
+//                }
+//
+//            });
+//        });
         var dateRange = new pickerDateRange('dateDemo', {
 //            aRecent7Days : 'aRecent7DaysDemo3', //最近7天
             isTodayValid: false,
