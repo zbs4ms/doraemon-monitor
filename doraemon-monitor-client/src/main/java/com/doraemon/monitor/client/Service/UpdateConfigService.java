@@ -24,7 +24,7 @@ public class UpdateConfigService {
 
     public synchronized void update() throws Exception {
 
-        String param = "ip=" + InetAddress.getLocalHost().getHostAddress();
+        String param = "ip=" + Main.LOCAL_IP;
         String response = HttpAgent.create().sendGet(Common.UPDATE_CONFIG_URL, param);
         log.info("向服务器端请求配置文件"+Common.UPDATE_CONFIG_URL+"?"+param+"\n返回数据:"+response);
         JSONObject jsonObject = JSON.parseObject(response);
