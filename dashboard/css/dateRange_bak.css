@@ -260,27 +260,19 @@ input{padding:2px 0 1px;*padding:4px 0 0;_padding:4px 0 0;_height:21px;}
     z-index:100;
 }
 .i_pre,.i_next,.ta_calendar td.ta_dateRangeSelected,.ta_calendar td.first,.ta_calendar td.last,.ta_calendar td.today{
-    /*background:url(http://imgcache.qq.com/bossweb/gmta/images/calendar_all.png) no-repeat;*/
+    /*background:url(http://imgcache.qq.com/bossweb/mta/images/calendar_all.png) no-repeat;*/
     background:url(../images/calendar_all.png) no-repeat;
     cursor:pointer;
 }
-.i_pre,.i_next{ width:16px; height:16px;display:inline-block; }
-.i_pre{ background:url(../images/arrow-left.svg) no-repeat;}
-.i_pre:hover{ background:url(../images/arrow-left.svg) no-repeat;}
-.i_next{background:url(../images/arrow-right.svg) no-repeat;}
-.i_next:hover{ background:url(../images/arrow-right.svg) no-repeat;}
+.i_pre,.i_next{ width:23px; height:23px;display:inline-block; }
+.i_pre{ background-position:0 0;}
+.i_pre:hover{ background-position:-46px 0px;}
+.i_next{ background-position:-23px 0;}
+.i_next:hover{ background-position:-69px 0px;}
 
 .ta_calendar td.ta_dateRangeSelected{
     background-position:-164px 2px;
     color:#fff;
-}
-
-.ta_calendar tr td.ta_dateRangeSelected:first-child{
-
-    background-position:-272px 2px;
-}
-.ta_calendar tr td.ta_dateRangeSelected:last-child{
-    background-position:-236px 2px;
 }
 .ta_calendar td.ta_dateRangeGray{
     color: #BBB;
@@ -288,11 +280,11 @@ input{padding:2px 0 1px;*padding:4px 0 0;_padding:4px 0 0;_height:21px;}
 }
 
 .ta_calendar td.first{
-    color:#fff;
-    background-position:-126px 2px;
+    color:#6590c1;
+    background-position:-128px 2px;
 }
 .ta_calendar td.last{
-    color:#fff;
+    color:#6590c1;
     background-position:-200px 2px;
 }
 .ta_calendar td.today{
@@ -402,7 +394,6 @@ input{padding:2px 0 1px;*padding:4px 0 0;_padding:4px 0 0;_height:21px;}
     float:left;
     padding-left:10px;
     vertical-align:middle;
-    display: none;
 }
 .ta_calendar_footer .ipt_text_s{
     padding:4px 4px;

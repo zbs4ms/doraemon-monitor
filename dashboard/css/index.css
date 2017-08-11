@@ -21,11 +21,16 @@ a {
 html {
   width: 100%;
   height: 100%;
+  min-width: 85.375rem;
+  min-height: 48rem;
   font-size: 14px;
   font-family: Helvetica, Tahoma, Arial, "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei"; }
 
 body {
-  background-image: linear-gradient(-180deg, #131d42 7%, #131c3e 61%, #121b3c 100%); }
+  background-image: linear-gradient(-180deg, #131d42 7%, #131c3e 61%, #121b3c 100%);
+  height: 100%;
+  width: 100%;
+  position: relative; }
 
 .clearfix:after {
   content: "020";
@@ -130,6 +135,7 @@ body {
     color: #fff; }
   .dataTables_wrapper table.dataTable thead th {
     background: #242c4a;
+    word-break: keep-all;
     text-align: left;
     font-size: 13px;
     border-bottom: none;
@@ -141,15 +147,19 @@ body {
       .dataTables_wrapper table.dataTable thead th:first-child:after {
         content: '';
         position: absolute;
-        border-bottom: 5px solid #fff;
+        border-top: 5px solid #fff;
         border-left: 5px solid transparent;
         border-right: 5px solid transparent;
         top: 19px;
         left: 55px; }
-  .dataTables_wrapper table.dataTable thead th, .dataTables_wrapper table.dataTable tbody td {
-    padding: 12px 15px; }
+  .dataTables_wrapper table.dataTable thead th {
+    padding: 12px 15px;
+    font-size: 13px; }
   .dataTables_wrapper table.dataTable tbody td {
+    padding: 13px 15px;
+    font-size: 14px;
     background: #2e364c;
+    width: auto;
     box-shadow: inset 1px 0 0 0 #54657e, inset 0 -1px 0 0 #54657e; }
     .dataTables_wrapper table.dataTable tbody td:last-child {
       box-shadow: inset 1px 0 0 0 #54657e, inset -1px -1px 0 0 #54657e; }
@@ -220,7 +230,6 @@ body {
   padding: 20px; }
 
 .popup {
-  display: none;
   position: absolute;
   top: 50px;
   left: 70px;
@@ -256,20 +265,20 @@ body {
 .problem-equipment .level1 {
   height: 10px;
   border-radius: 5px;
-  background-color: #FF9948;
+  background-color: #d2335c;
   width: 48px;
   display: inline-block; }
 .problem-equipment .level2 {
   height: 10px;
   border-radius: 5px;
-  background-color: #C6FA91 ;
+  background-color: #ff9948;
   width: 48px;
   display: inline-block; }
 
 .problem-equipment .level3 {
   height: 10px;
   border-radius: 5px;
-  background-color: #FE3B6D;
+  background-color: #C6FA91;
   width: 48px;
   display: inline-block; }
 
@@ -299,7 +308,6 @@ body {
     margin-left: 10%;
     padding: 20px; }
   .history-log .view-more {
-    cursor:pointer;
     color: #20a0ff; }
   .history-log .progress-bar {
     margin-right: 10px;
@@ -319,5 +327,7 @@ body {
       position: absolute;
       left: 0;
       top: 0; }
+  .history-log .details-table thead th:first-child:after {
+    display: none; }
 
 /*# sourceMappingURL=index.css.map */

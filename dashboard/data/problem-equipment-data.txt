@@ -1,40 +1,113 @@
 {
-  "code": null,
-  "data": [
-    {
-      "deviceType": "WAN",
-      "ip": "39.108.117.235",
-      "terminalNick": "不会通的IP",
-      "warningNum": null,
-      "offTime": 1501405680000,
-      "shopId": "A1101",
-      "region": "高新区",
-      "clientNick": "我的客户端",
-      "status": "-1"
-    },
-    {
-      "deviceType": "WAN",
-      "ip": "39.108.117.235",
-      "terminalNick": "会通的IP",
-      "warningNum": null,
-      "offTime": null,
-      "shopId": "A1101",
-      "region": "高新区",
-      "clientNick": "我的客户端",
-      "status": "0"
-    },
-    {
-      "deviceType": "WAN",
-      "ip": "39.108.117.235",
-      "terminalNick": "乱写的IP",
-      "warningNum": 0,
-      "offTime": null,
-      "shopId": "A1101",
-      "region": "高新区",
-      "clientNick": "我的客户端",
-      "status": "1"
-    }
-  ],
-  "success": true,
-  "message": null
+    "data": [
+        {
+            "region": "金牛区",
+            "id": "10086",
+            "storeName": "文月1店",
+            "deviceName": "文1号",
+            "ipAddr": "192.168.4.2",
+            "offlineTime": "2017-09-01 18:10:30",
+            "status":"1级"
+        },
+        {
+            "region": "金牛区",
+            "id": "10086",
+            "storeName": "文月1店",
+            "deviceName": "文1号",
+            "ipAddr": "192.168.4.2",
+            "offlineTime": "2017-09-01 18:10:30",
+            "status":"1级"
+        },
+        {
+            "region": "金牛区",
+            "id": "10086",
+            "storeName": "文月1店",
+            "deviceName": "文1号",
+            "ipAddr": "192.168.4.2",
+            "offlineTime": "2017-09-01 18:10:30",
+            "status":"2级"
+        },
+        {
+            "region": "金牛区",
+            "id": "10086",
+            "storeName": "文月1店",
+            "deviceName": "文1号",
+            "ipAddr": "192.168.4.2",
+            "offlineTime": "2017-09-01 18:10:30",
+            "status":"1级"
+        },
+        {
+            "region": "金牛区",
+            "id": "10086",
+            "storeName": "文月1店",
+            "deviceName": "文1号",
+            "ipAddr": "192.168.4.2",
+            "offlineTime": "2017-09-01 18:10:30",
+            "status":"2级"
+        },
+        {
+            "region": "金牛区",
+            "id": "10086",
+            "storeName": "文月1店",
+            "deviceName": "文1号",
+            "ipAddr": "192.168.4.2",
+            "offlineTime": "2017-09-01 18:10:30",
+            "status":"1级"
+        },
+        {
+            "region": "金牛区",
+            "id": "10086",
+            "storeName": "文月1店",
+            "deviceName": "文1号",
+            "ipAddr": "192.168.4.2",
+            "offlineTime": "2017-09-01 18:10:30",
+            "status":"1级"
+        },
+        {
+            "region": "金牛区",
+            "id": "10086",
+            "storeName": "文月1店",
+            "deviceName": "文1号",
+            "ipAddr": "192.168.4.2",
+            "offlineTime": "2017-09-01 18:10:30",
+            "status":"1级"
+        },
+        {
+            "region": "金牛区",
+            "id": "10086",
+            "storeName": "文月1店",
+            "deviceName": "文1号",
+            "ipAddr": "192.168.4.2",
+            "offlineTime": "2017-09-01 18:10:30",
+            "status":"1级"
+        },
+        {
+            "region": "金牛区",
+            "id": "10086",
+            "storeName": "文月1店",
+            "deviceName": "文1号",
+            "ipAddr": "192.168.4.2",
+            "offlineTime": "2017-09-01 18:10:30",
+            "status":"1级"
+        },
+        {
+            "region": "金牛区",
+            "id": "10086",
+            "storeName": "文月1店",
+            "deviceName": "文1号",
+            "ipAddr": "192.168.4.2",
+            "offlineTime": "2017-09-01 18:10:30",
+            "status":"1级"
+        },
+        {
+            "region": "金牛区",
+            "id": "10086",
+            "storeName": "文月1店",
+            "deviceName": "文1号",
+            "ipAddr": "192.168.4.2",
+            "offlineTime": "2017-09-01 18:10:30",
+            "status":"1级"
+        }
+
+    ]
 }

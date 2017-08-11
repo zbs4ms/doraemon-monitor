@@ -17,7 +17,7 @@
     <li class="tab"><a href="#historyLog">History Log</a></li>
 </ul>
 <div class="tab-content">
-    <canvas id="waves" class="waves"></canvas>
+    <!--<canvas id="waves" class="waves"></canvas>-->
     <div class="tab-panel active problem-equipment" id="problemEquipment">
         <div class="left-container">
             <table class="problem-equipment-table" width="100%">
@@ -33,45 +33,41 @@
                 </tr>
                 </thead>
             </table>
-            <div class="popup" id = "areaList">
-                <ul class="region-list">
-                    <li><label class="checkbox-wrap"><input type="checkbox"/><span
-                            class="checkbox-inner"></span>全部</label></li>
-                    <li><label class="checkbox-wrap"><input type="checkbox"/><span
-                            class="checkbox-inner"></span>金牛区</label></li>
-                    <li><label class="checkbox-wrap"><input type="checkbox"/><span
-                            class="checkbox-inner"></span>青羊区</label></li>
-                    <li><label class="checkbox-wrap"><input type="checkbox"/><span
-                            class="checkbox-inner"></span>高新区</label></li>
-                    <li><label class="checkbox-wrap"><input type="checkbox"/><span
-                            class="checkbox-inner"></span>武侯区</label></li>
-                    <li><label class="checkbox-wrap"><input type="checkbox"/><span
-                            class="checkbox-inner"></span>锦江区</label></li>
-                </ul>
-            </div>
+            <!--<div class="popup">-->
+                <!--<ul class="region-list">-->
+                    <!--<li><label class="checkbox-wrap"><input type="checkbox"/><span-->
+                            <!--class="checkbox-inner"></span>全部</label></li>-->
+                    <!--<li><label class="checkbox-wrap"><input type="checkbox"/><span-->
+                            <!--class="checkbox-inner"></span>金牛区</label></li>-->
+                    <!--<li><label class="checkbox-wrap"><input type="checkbox"/><span-->
+                            <!--class="checkbox-inner"></span>青羊区</label></li>-->
+                    <!--<li><label class="checkbox-wrap"><input type="checkbox"/><span-->
+                            <!--class="checkbox-inner"></span>高新区</label></li>-->
+                    <!--<li><label class="checkbox-wrap"><input type="checkbox"/><span-->
+                            <!--class="checkbox-inner"></span>武侯区</label></li>-->
+                    <!--<li><label class="checkbox-wrap"><input type="checkbox"/><span-->
+                            <!--class="checkbox-inner"></span>锦江区</label></li>-->
+                <!--</ul>-->
+            <!--</div>-->
         </div>
-        <!--<div class="right-container">-->
-            <!--<div id="mapDemo" class="map-content"></div>-->
-        <!--</div>-->
+        <div class="right-container">
+            <div id="mapDemo" class="map-content"></div>
+        </div>
     </div>
     <div class="tab-panel history-log" id="historyLog">
         <div class="table-wrap">
             <div class="oper-btns clearfix">
-
                 <button class="btn" id = "D">Current</button>
                 <button class="btn" id = "W">Last week</button>
                 <button class="btn" id = "M">Last month</button>
                 <button class="btn" id = "Y">Last year</button>
-                <!--<button class="btn" id = "currentButton">Current</button>-->
-                <!--<button class="btn" id = "weekButton">Last week</button>-->
-                <!--<button class="btn" id = "monthButton">Last month</button>-->
-                <!--<button class="btn" id = "yearButton">Last year</button>-->
-                <div class="ta_date align-right">
-                    <span class="date_title" id="dateDemo"></span>
-                    <a class="opt_sel" id="inputTriggerDemo" href="#">
-                         <i class="i_orderd"></i>
-                    </a>
-                </div>
+                <!--日期选择空间-->
+                <!--<div class="ta_date align-right">-->
+                    <!--<span class="date_title" id="dateDemo"></span>-->
+                    <!--<a class="opt_sel" id="inputTriggerDemo" href="#">-->
+                        <!--<i class="i_orderd"></i>-->
+                    <!--</a>-->
+                <!--</div>-->
             </div>
             <div class="left-container">
                 <table class="history-log-table" width="100%">
@@ -84,28 +80,29 @@
                     </tr>
                     </thead>
                 </table>
-                <div class="popup">
-                    <ul class="region-list">
-                        <li><label class="checkbox-wrap"><input type="checkbox"/><span class="checkbox-inner"></span>全部</label>
-                        </li>
-                        <li><label class="checkbox-wrap"><input type="checkbox"/><span class="checkbox-inner"></span>金牛区</label>
-                        </li>
-                        <li><label class="checkbox-wrap"><input type="checkbox"/><span class="checkbox-inner"></span>青羊区</label>
-                        </li>
-                        <li><label class="checkbox-wrap"><input type="checkbox"/><span class="checkbox-inner"></span>高新区</label>
-                        </li>
-                        <li><label class="checkbox-wrap"><input type="checkbox"/><span class="checkbox-inner"></span>武侯区</label>
-                        </li>
-                        <li><label class="checkbox-wrap"><input type="checkbox"/><span class="checkbox-inner"></span>锦江区</label>
-                        </li>
-                    </ul>
-                </div>
+                <!--<div class="popup">-->
+                    <!--<ul class="region-list">-->
+                        <!--<li><label class="checkbox-wrap"><input type="checkbox"/><span class="checkbox-inner"></span>全部</label>-->
+                        <!--</li>-->
+                        <!--<li><label class="checkbox-wrap"><input type="checkbox"/><span class="checkbox-inner"></span>金牛区</label>-->
+                        <!--</li>-->
+                        <!--<li><label class="checkbox-wrap"><input type="checkbox"/><span class="checkbox-inner"></span>青羊区</label>-->
+                        <!--</li>-->
+                        <!--<li><label class="checkbox-wrap"><input type="checkbox"/><span class="checkbox-inner"></span>高新区</label>-->
+                        <!--</li>-->
+                        <!--<li><label class="checkbox-wrap"><input type="checkbox"/><span class="checkbox-inner"></span>武侯区</label>-->
+                        <!--</li>-->
+                        <!--<li><label class="checkbox-wrap"><input type="checkbox"/><span class="checkbox-inner"></span>锦江区</label>-->
+                        <!--</li>-->
+                    <!--</ul>-->
+                <!--</div>-->
             </div>
             <div class="right-container">
                 <table class="details-table">
                     <thead>
                     <tr>
-                        <th>Device name</th>
+                        <th>Host name</th>
+                        <th>Network type</th>
                         <th>IP address</th>
                         <th>Usability</th>
                     </tr>
@@ -125,12 +122,7 @@
 <script src="js/dateRange.js"></script>
 <script src="js/fnReloadAjax.js"></script>
 <script>
-
-
-
     $(document).ready(function () {
-
-
         var $historyLogTable = $('.history-log-table');
         //切换tab页
         $(".tabs .tab").click(function () {
@@ -199,14 +191,16 @@
                 });
             }
         });
-
+//        problemEquipmentTable.column( 0 ).search(
+//
+//        ).draw();
         var historyLogTable = $('.history-log-table').DataTable({
 
 
             //开启服务器模式
             bRetrieve: true,
             serverSide: true,
-           // "ajax": {"url":"data/detail-data.txt", "dataSrc": "data"},
+            // "ajax": {"url":"data/detail-data.txt", "dataSrc": "data"},
             "ajax": {"url":"/monitor/message/queryUsability?dateType=D", "dataSrc": "data"},
             "paging": false,
             "searching": false,
@@ -224,10 +218,10 @@
                     }
                 },
                 {
-                      "data":function (data) {
-                          return '<a class="view-more" >' + "详情" + '</a>';
+                    "data":function (data) {
+                        return '<a class="view-more" >' + "详情" + '</a>';
 
-                      },
+                    },
 
                 }
             ],
@@ -237,45 +231,30 @@
                 });
             }
         });
-
-
-
-
-
-          var detailTable = $('.details-table').DataTable({
-
+        $('.details-table').DataTable({
             //开启服务器模式
             serverSide: true,
             "ajax": {"url":"/monitor/message/queryUsability?dateType=D", "dataSrc": "data.0.terminalList"},
             "paging": false,
             "searching": false,
             "info": false,
-              "oLanguage": {
-                  "sZeroRecords": "对不起，没有数据"
-              },
+            "oLanguage": {
+                "sZeroRecords": "对不起，没有数据"
+            },
 
-              "columns": [
+            "columns": [
                 {"data":"nick"},
                 {"data":"clientIp"},
                 {"data":"terminalUsability"}
             ]
-        })
+        });
+
 
         $('.history-log-table tbody').on('click','a',function(){
             var data = historyLogTable.row( $(this).parents('tr') ).data();
             var table = $('.details-table').dataTable();
             //table.fnReloadAjax("data/detail-data2.txt");
             table.fnReloadAjax("/monitor/message/queryUsability?dateType=D&ip="+data.ip);
-
-        })
-
-        //年月星期日 按钮点击时间
-        $(".btn").on('click',function(){
-
-            var table = $('.history-log-table').dataTable();
-            //var table_detail = $('.details-table').dataTable()
-            table.fnReloadAjax("/monitor/message/queryUsability?dateType="+$(this).attr("id"))
-            //table_detail.fnReloadAjax("/monitor/message/queryUsability?dateType="+$(this).attr("id"))
 
         })
 
@@ -287,12 +266,12 @@
 //                map: 'chengdu'
 //            }]
 //        });
-        var data = [
-            {name: '高新区', value: 9},
-            {name: '成华区', value: 12},
-            {name: '金牛区', value: 100}
-        ];
-
+//        var data = [
+//            {name: '高新区', value: 9},
+//            {name: '成华区', value: 12},
+//            {name: '金牛区', value: 100}
+//        ];
+//
 //        $.getJSON('./data/chengdu.json', function (data) {
 //            echarts.registerMap('chengdu', data);
 //            var chart = echarts.init(document.getElementById('mapDemo'));
@@ -318,39 +297,45 @@
 //
 //            });
 //        });
-        var dateRange = new pickerDateRange('dateDemo', {
-//            aRecent7Days : 'aRecent7DaysDemo3', //最近7天
-            isTodayValid: false,
-            //startDate : '2013-04-14',
-            //endDate : '2013-04-21',
-            //needCompare : true,
-            //isSingleDay : true,
-            //shortOpr : true,
-            defaultText: ' 至 ',
-            inputTrigger: 'inputTriggerDemo',
-            theme: 'ta',
-            success: function (obj) {
-//                $("#dCon_demo3").html('开始时间 : ' + obj.startDate + '<br/>结束时间 : ' + obj.endDate);
-            }
-        });
-
-
-        var flag = true;
-        $("#area").click(function () {
-            if(flag){
-                $("#areaList").show();
-                flag = false
-            }else {
-                $("#areaList").hide();
-                flag = true;
-            }
-        })
-
-
-
-
+//        var dateRange = new pickerDateRange('dateDemo', {
+////            aRecent7Days : 'aRecent7DaysDemo3', //最近7天
+//            isTodayValid: false,
+//            //startDate : '2013-04-14',
+//            //endDate : '2013-04-21',
+//            //needCompare : true,
+//            //isSingleDay : true,
+//            //shortOpr : true,
+//            defaultText: ' 至 ',
+//            inputTrigger: 'inputTriggerDemo',
+//            theme: 'ta',
+//            success: function (obj) {
+////                $("#dCon_demo3").html('开始时间 : ' + obj.startDate + '<br/>结束时间 : ' + obj.endDate);
+//            }
+//        });
 
     });
+    //加载波浪
+    var tc = $('.tab-content');
+    var SW;
+    function loadWave() {
+        if(SW) SW.remove();
+        var w = tc.width();
+        var h = tc.height();
+        SW = new SiriWave({
+            container: tc[0],
+            width: w,
+            height: h
+        });
+        SW.setSpeed(0.05);
+        SW.start();
+        SW.setNoise(0.5);
+
+    }
+    loadWave();
+
+    window.onresize=function () {
+        loadWave();
+    }
 </script>
 </body>
 </html>
