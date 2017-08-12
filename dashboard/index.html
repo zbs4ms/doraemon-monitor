@@ -275,10 +275,12 @@
             var table_detail = $('.details-table').dataTable();
 
             timeType = $(this).attr("id");
-            $('.history-log-table').dataTable().fnClearTable(false);
-            $('.details-table').dataTable().fnClearTable(false);
+//            $('.history-log-table').dataTable().fnClearTable(false);
+//            $('.details-table').dataTable().fnClearTable(false);
 //            table.fnClearTable(false);
 //            table_detail.fnClearTable(false);
+            table.fnReloadAjax();
+            table_detail.fnReloadAjax();
             table.fnReloadAjax("/monitor/message/queryUsability?dateType="+$(this).attr("id"))
             table_detail.fnReloadAjax("/monitor/message/queryUsability?dateType="+$(this).attr("id"))
 
