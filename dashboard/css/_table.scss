@@ -11,6 +11,7 @@
     }
     thead th {
       background: $table-th-bg;
+      word-break: keep-all;
       text-align: left;
       //font-weight: normal;
       font-size: 13px;
@@ -24,7 +25,7 @@
         &:after{
           content: '';
           position: absolute;
-          border-bottom:5px solid $color-light;
+          border-top:5px solid $color-light;
           border-left: 5px solid transparent;
           border-right: 5px solid transparent;
           top: 19px;
@@ -32,11 +33,15 @@
         }
       }
     }
-    thead th, tbody td {
+    thead th {
       padding: 12px 15px;
+      font-size: $table-th-font-size;
     }
     tbody td {
+      padding: 13px 15px;
+      font-size: $font-size-base;
       background: $table-td-bg;
+      width: auto;
       box-shadow: inset 1px 0 0 0 $color-blue-grey, inset 0 -1px 0 0 $color-blue-grey;
       &:last-child {
         box-shadow: inset 1px 0 0 0 $color-blue-grey, inset -1px -1px 0 0 $color-blue-grey;
