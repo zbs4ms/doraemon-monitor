@@ -252,11 +252,12 @@
             ]
         });
 
-
+        var timeType;
+        //here....
         $('.history-log-table tbody').on('click','a',function(){
             var data = historyLogTable.row( $(this).parents('tr') ).data();
             var table = $('.details-table').dataTable();
-            table.fnReloadAjax("/monitor/message/queryUsability?dateType=D&ip="+data.ip);
+            table.fnReloadAjax("/monitor/message/queryUsability?dateType="+timeType+"&ip="+data.ip);
 
 
         })
@@ -265,7 +266,11 @@
         $(".btn").on('click',function(){
 
             var table = $('.history-log-table').dataTable();
-            var table_detail = $('.details-table').dataTable()
+            table.destroy();
+
+            var table_detail = $('.details-table').dataTable();
+            table_detail.destroy();
+            timeType = $(this).attr("id");
             table.fnReloadAjax("/monitor/message/queryUsability?dateType="+$(this).attr("id"))
             table_detail.fnReloadAjax("/monitor/message/queryUsability?dateType="+$(this).attr("id"))
 
