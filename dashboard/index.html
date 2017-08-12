@@ -255,7 +255,7 @@
             ]
         });
 
-        var timeType;
+        var timeType = "D";
         //here....
         $('.history-log-table tbody').on('click','a',function(){
             var data = historyLogTable.row( $(this).parents('tr') ).data();
@@ -275,8 +275,10 @@
             var table_detail = $('.details-table').dataTable();
 
             timeType = $(this).attr("id");
-            table.fnClearTable();
-            table_detail.fnClearTable();
+            $('.history-log-table').dataTable().fnClearTable(false);
+            $('.details-table').dataTable().fnClearTable(false);
+//            table.fnClearTable(false);
+//            table_detail.fnClearTable(false);
             table.fnReloadAjax("/monitor/message/queryUsability?dateType="+$(this).attr("id"))
             table_detail.fnReloadAjax("/monitor/message/queryUsability?dateType="+$(this).attr("id"))
 
