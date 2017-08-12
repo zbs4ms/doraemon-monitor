@@ -275,6 +275,8 @@
             var table_detail = $('.details-table').dataTable();
 
             timeType = $(this).attr("id");
+            table.fnClearTable();
+            table_detail.fnClearTable();
             table.fnReloadAjax("/monitor/message/queryUsability?dateType="+$(this).attr("id"))
             table_detail.fnReloadAjax("/monitor/message/queryUsability?dateType="+$(this).attr("id"))
 
