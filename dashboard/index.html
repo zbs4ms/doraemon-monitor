@@ -256,13 +256,16 @@
             var table = $('.details-table').dataTable();
             table.fnReloadAjax("/monitor/message/queryUsability?dateType=D&ip="+data.ip);
 
+
         })
 
         //年月星期日 按钮点击时间
         $(".btn").on('click',function(){
 
             var table = $('.history-log-table').dataTable();
+            var table_detail = $('.details-table').dataTable()
             table.fnReloadAjax("/monitor/message/queryUsability?dateType="+$(this).attr("id"))
+            table_detail.fnReloadAjax("/monitor/message/queryUsability?dateType="+$(this).attr("id"))
 
         })
 

@@ -274,9 +274,9 @@
         $(".btn").on('click',function(){
 
             var table = $('.history-log-table').dataTable();
-            //var table_detail = $('.details-table').dataTable()
+            var table_detail = $('.details-table').dataTable()
             table.fnReloadAjax("/monitor/message/queryUsability?dateType="+$(this).attr("id"))
-            //table_detail.fnReloadAjax("/monitor/message/queryUsability?dateType="+$(this).attr("id"))
+            table_detail.fnReloadAjax("/monitor/message/queryUsability?dateType="+$(this).attr("id"))
 
         })
 
