@@ -218,7 +218,9 @@
                     }
                 },
                 {
-                    "data":function (data) {
+                    "data":function (data,type,row) {
+                        console.log(data)
+                        console.log(row)
                         return '<a class="view-more" >' + "详情" + '</a>';
 
                     },
