@@ -97,9 +97,12 @@ public class MessageController extends BaseController {
 
         //add csrr...
         if(clientList == null){
+            List<Client> list = new ArrayList<>();
             Client client = new Client();
             client.setTerminalList(new ArrayList<Terminal>());
-            clientList.add(client);
+            list.add(client);
+
+            return ResponseWrapper().addData(list).ExeSuccess();
 
         }
         return ResponseWrapper().addData(clientList).ExeSuccess();
