@@ -279,8 +279,7 @@
 //            $('.details-table').dataTable().fnClearTable(false);
 //            table.fnClearTable(false);
 //            table_detail.fnClearTable(false);
-            table.fnReloadAjax();
-            table_detail.fnReloadAjax();
+
             table.fnReloadAjax("/monitor/message/queryUsability?dateType="+$(this).attr("id"))
             table_detail.fnReloadAjax("/monitor/message/queryUsability?dateType="+$(this).attr("id"))
 

@@ -6,6 +6,7 @@ import com.doraemon.monitor.controller.protocol.MessagePro;
 import com.doraemon.monitor.controller.protocol.PagePro;
 import com.doraemon.monitor.dao.models.Client;
 import com.doraemon.monitor.dao.models.MonitorLog;
+import com.doraemon.monitor.dao.models.Terminal;
 import com.doraemon.monitor.service.CountService;
 import com.doraemon.monitor.service.MessageSerive;
 import com.doraemon.monitor.service.UsabilityService;
@@ -20,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -92,6 +94,14 @@ public class MessageController extends BaseController {
         }
         //PageInfo<Client> monitorPage = countService.totalClientErrorTime(ip,dateBean.getStartDate(),dateBean.getStopDate(),PagePro.create(page,row));
         List<Client> clientList = usabilityService.selectClientUsability(ip,dateBean,dateType);
+
+        //add csrr...
+        if(clientList == null){
+            Client client = new Client();
+            client.setTerminalList(new ArrayList<Terminal>());
+            clientList.add(client);
+
+        }
         return ResponseWrapper().addData(clientList).ExeSuccess();
     }
 }
