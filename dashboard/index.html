@@ -139,7 +139,7 @@
             //开启服务器模式
             serverSide: true,
             bRetrieve: true,
-            bDestory:true,
+            //bDestory:true,
             //"ajax": {"url":"data/problem-equipment-data.txt", "dataSrc": "data"},
 
             'ajax': {
@@ -201,7 +201,7 @@
             //开启服务器模式
             bRetrieve: true,
             serverSide: true,
-            bDestory:true,
+            //bDestory:true,
             // "ajax": {"url":"data/detail-data.txt", "dataSrc": "data"},
             "ajax": {"url":"/monitor/message/queryUsability?dateType=D", "dataSrc": "data"},
             "paging": false,
@@ -238,7 +238,7 @@
         var detail_main =  $('.details-table').DataTable({
             //开启服务器模式
             serverSide: true,
-            "bDestory":true,
+            //"bDestory":true,
             "ajax": {"url":"/monitor/message/queryUsability?dateType=D", "dataSrc": "data.0.terminalList"},
             "paging": false,
             "searching": false,
