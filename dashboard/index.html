@@ -50,14 +50,14 @@
                 </ul>
             </div>
         </div>
-        <div class="right-container">
+        <!-- <div class="right-container">
             <div id="mapDemo" class="map-content"></div>
-        </div>
+        </div> -->
     </div>
     <div class="tab-panel history-log" id="historyLog">
         <div class="table-wrap">
             <div class="oper-btns clearfix">
-                <button class="btn" id = "D">Current</button>
+                <button class="btn active" id = "D">Current</button>
                 <button class="btn" id = "W">Last week</button>
                 <button class="btn" id = "M">Last month</button>
                 <button class="btn" id = "Y">Last year</button>
@@ -101,10 +101,10 @@
                 <table class="details-table">
                     <thead>
                     <tr>
-                        <th>Host name</th>
-                        <th>Network type</th>
-                        <th>IP address</th>
-                        <th>Usability</th>
+                        <th style="width: 120px !important;">Host name</th>
+                        <th style="width: 120px !important;">Network type</th>
+                        <th style="width: 140px !important;">IP address</th>
+                        <th style="width: 120px !important;">Usability</th>
                     </tr>
                     </thead>
                 </table>
@@ -125,12 +125,36 @@
     $(document).ready(function () {
         var $historyLogTable = $('.history-log-table');
         //切换tab页
+        $(".tabs .tab a").click(function (e) {
+          e.preventDefault()
+        })
+        // 地区选择
+        $(".region-list").on("click", "li", function (e) {
+          e.preventDefault()
+          var $this = $(this)
+          var currChecked = $this.find('input[type=checkbox]').is(":checked")
+          var lis = $this.parent().children()
+          var allCheckBtn = lis.first()
+          if ($this.is(':first-child')) {
+            $this.siblings().find('input[type=checkbox]').attr('checked', !currChecked)
+          } else {
+            var allChecked = true
+            lis.not(':first-child').not($this).each(function () {
+              allChecked = $(this).find('input[type=checkbox]').attr('checked')
+              if (!allChecked) return false
+            })
+            if (allChecked) {
+              allCheckBtn.find('input[type=checkbox]').attr('checked', !currChecked)
+            }
+          }
+          $this.find('input[type=checkbox]').attr('checked', !currChecked)
+        })
         $(".tabs .tab").click(function () {
             var _this = $(this);
             if (_this.hasClass('active')) return;
             var paneId = _this.find('a').attr('href');
             if (!paneId) return;
-            $('.tab-content .active').removeClass('active');
+            $('.tab-content .tab-panel.active').removeClass('active');
             $('.tabs .active').removeClass('active');
             $(paneId).addClass('active');
             _this.addClass('active');
@@ -233,6 +257,7 @@
                 $('#historyLog').find(".dataTables_wrapper").mCustomScrollbar({
                     theme: "minimal"
                 });
+                $('.history-log-table tbody tr:first-child').addClass('active')
             }
         });
         var detail_main =  $('.details-table').DataTable({
@@ -261,14 +286,16 @@
             var data = historyLogTable.row( $(this).parents('tr') ).data();
             var table = $('.details-table').dataTable();
             table.fnReloadAjax("/monitor/message/queryUsability?dateType="+timeType+"&ip="+data.ip);
-
+            $(this).closest('tr').addClass('active').siblings().removeClass('active')
 
         })
 
 
         //年月星期日 按钮点击时间
         $(".btn").on('click',function(){
-
+            $(this).addClass('active').siblings().each(function (index, item) {
+              $(item).removeClass('active')
+            })
             var table = $('.history-log-table').dataTable();
 
 
