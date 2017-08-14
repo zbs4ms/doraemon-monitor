@@ -94,7 +94,7 @@ public class MessageController extends BaseController {
                 throw new Exception("错误的类型");
         }
         //PageInfo<Client> monitorPage = countService.totalClientErrorTime(ip,dateBean.getStartDate(),dateBean.getStopDate(),PagePro.create(page,row));
-        List<Client> clientList = usabilityService.selectClientUsability(ip,dateBean,dateType);
+        List<Client> clientList = usabilityService.selectClientUsability(ip,region,dateBean,dateType);
 
         //add csrr...
         if(clientList == null){

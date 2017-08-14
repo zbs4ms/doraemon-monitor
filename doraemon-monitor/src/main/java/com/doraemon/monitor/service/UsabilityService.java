@@ -32,6 +32,9 @@ public class UsabilityService {
     ClientMapper clientMapper;
 
     @Autowired
+    ConfigService configService;
+
+    @Autowired
     TerminalMapper terminalMapper;
 
     /**
@@ -43,7 +46,8 @@ public class UsabilityService {
      * @param usability
      */
     public void updateOrInsertClientUsability(String timeType, String clientIp, Date time, BigDecimal usability) {
-        ClientUsability clientUsability = new ClientUsability(null, time, timeType, clientIp, null);
+        List<Client> clientList = configService.queryClient(clientIp,null);
+        ClientUsability clientUsability = new ClientUsability(null, time, timeType, clientIp, null,clientList!=null&&clientList.size()>0 ? clientList.get(0).getRegion() : null);
         ClientUsability results = clientUsabilityMapper.selectOne(clientUsability);
         //判断是否有数据,有数据进行更新操作,没有数据进行插入数据操作
         if (results == null) {
@@ -81,12 +85,14 @@ public class UsabilityService {
         }
     }
 
-    public List<Client> selectClientUsability(String clientIp, DateTool.DateBean dateBean, String timeType) throws Exception {
+    public List<Client> selectClientUsability(String clientIp, String region,DateTool.DateBean dateBean, String timeType) throws Exception {
         ClientUsability clientUsability = new ClientUsability();
         clientUsability.setTimeType(timeType);
         clientUsability.setStatisticalTime(dateBean.getStartDate());
         if(clientIp!=null)
             clientUsability.setClientIp(clientIp);
+        if(region != null)
+            clientUsability.setRegion(region);
         List<ClientUsability> clientUsabilityList = clientUsabilityMapper.select(clientUsability);
         if(clientUsabilityList == null || clientUsabilityList.size()<1)
             return null;

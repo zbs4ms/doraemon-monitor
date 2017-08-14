@@ -21,16 +21,18 @@ public class ClientUsability {
     String timeType;
     String clientIp;
     BigDecimal usability;
+    String region;
 
     @Transient
     List<TerminalUsability> terminalUsabilityList;
 
     public ClientUsability(){}
-    public ClientUsability(Long id,Date statisticalTime,String timeType,String clientIp,BigDecimal usability){
+    public ClientUsability(Long id,Date statisticalTime,String timeType,String clientIp,BigDecimal usability,String region){
         this.id = id;
         this.statisticalTime = statisticalTime;
         this.timeType = timeType;
         this.clientIp = clientIp;
         this.usability = usability;
+        this.region = region;
     }
 }
