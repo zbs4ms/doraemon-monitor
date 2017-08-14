@@ -34,10 +34,10 @@ public class DateTool {
         return new DateBean(startCalendar.getTime(), stopCalendar.getTime());
     }
 
-    public static void main(String[] args) throws Exception {
-        DateBean dateBean = DateTool.create().getLastWeek();
-        System.out.print(DateTool.create().diffDay(dateBean.getStartDate(),dateBean.getStopDate()));
-    }
+//    public static void main(String[] args) throws Exception {
+//        DateBean dateBean = DateTool.create().getLastWeek();
+//        System.out.print(DateTool.create().diffDay(dateBean.getStartDate(),dateBean.getStopDate()));
+//    }
 
     public DateBean getLastMonth() {
         Calendar lastMonthCalendar = Calendar.getInstance();

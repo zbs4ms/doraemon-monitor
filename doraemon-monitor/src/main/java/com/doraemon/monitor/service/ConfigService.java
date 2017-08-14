@@ -30,6 +30,10 @@ public class ConfigService {
     @Autowired
     TerminalMapper terminalMapper;
 
+    public List<String> queryAllRegion(){
+         return clientMapper.queryAllRegion();
+    }
+
     /**
      * 根据IP查询client,没ip代表查询全部
      *
@@ -42,7 +46,7 @@ public class ConfigService {
         queryClient.setRegion(region);
         List<Client> clientList = clientMapper.select(queryClient);
         setTerminal(clientList);
-        return clientList;
+        return clientList.size()==0 ? null : clientList;
     }
 
     /**
@@ -90,7 +94,7 @@ public class ConfigService {
      * @param nick
      */
     @Transactional
-    public void add(List<SubIpsPro> subIps, String ip, String nick, String region, String shopId) {
+    public void add(List<SubIpsPro> subIps, String ip, String nick, String region, String shopId) throws Exception {
         Preconditions.checkState(subIps != null && subIps.size() > 0, "子IP列表不能为空.");
         Preconditions.checkState(ip != null && !ip.equals(""), "客户端IP不能为空.");
         Preconditions.checkState(nick != null && !nick.equals(""), "昵称不能为空.");
@@ -108,11 +112,25 @@ public class ConfigService {
             Terminal newTerminal = new Terminal();
             newTerminal.setNick(subIpsPro.getNick());
             newTerminal.setTerminalIp(subIpsPro.getIp());
-            newTerminal.setDeviceType(subIpsPro.getType());
+            newTerminal.setDeviceType(getType(subIpsPro.getIp()));
             newTerminal.setClientIp(newClient.getIp());
             newTerminal.setPhone(subIpsPro.getPhone());
             //保存 terminal
             Preconditions.checkState(terminalMapper.insert(newTerminal) == 1, "保存terminal失败.");
+        }
+    }
+
+    private String getType(String ip) {
+        if(ip == null)
+            return null;
+        String[] ips = ip.split(".");
+        if(ips == null || ips.length != 4)
+            return null;
+        switch (ips[3]){
+            case "1":
+                return "WAN";
+            default:
+                return "LAN";
         }
     }
 

@@ -8,4 +8,7 @@ import java.util.List;
 
 public interface ClientMapper extends MyMapper<Client> {
 
+    @Select({"select region from client GROUP BY region"})
+    List<String> queryAllRegion();
+
 }

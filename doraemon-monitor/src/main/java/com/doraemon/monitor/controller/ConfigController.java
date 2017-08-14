@@ -41,6 +41,7 @@ public class ConfigController extends BaseController {
                           @ApiParam(value = "客户端别名", required = true) @RequestParam(value = "nick", required = true) String nick,
                           @ApiParam(value = "客户端区域", required = true) @RequestParam(value = "region", required = true) String region,
                           @ApiParam(value = "客户端门店ID", required = true) @RequestParam(value = "shopId", required = true) String shopId) throws Exception {
+
         List<SubIpsPro> subIpsList = JSONArray.parseArray(subIps,SubIpsPro.class);
         configService.add(subIpsList,ip,nick,region,shopId);
         return ResponseWrapper().addData("ok").ExeSuccess();
@@ -63,6 +64,14 @@ public class ConfigController extends BaseController {
                                    @ApiParam(value = "客户端IP",required = true) @RequestParam(value = "ip",required = true) String ip) throws Exception {
         configService.delete(subIps,ip);
         return ResponseWrapper().addData("ok").ExeSuccess();
+    }
+
+    @ApiOperation(value = "查询全部的地区配置")
+    @RequestMapping(value = "queryAllRegion", method = RequestMethod.GET)
+    @ResponseBody
+    public JSONObject queryAllRegion() throws Exception {
+        List<String> regionList = configService.queryAllRegion();
+        return ResponseWrapper().addData(regionList).ExeSuccess();
     }
 
     @ApiOperation(value = "查询配置(什么都不传入默认查询全/....部)")
