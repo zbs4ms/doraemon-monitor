@@ -17,7 +17,7 @@
     <li class="tab"><a href="#historyLog">History Log</a></li>
 </ul>
 <div class="tab-content">
-    <!--<canvas id="waves" class="waves"></canvas>-->
+    <canvas id="waves" class="waves"></canvas>
     <div class="tab-panel active problem-equipment" id="problemEquipment">
         <div class="left-container">
             <table class="problem-equipment-table" width="100%">
@@ -33,7 +33,7 @@
                 </tr>
                 </thead>
             </table>
-            <div class="popup">
+            <div class="popup" id = "areaList">
                 <ul class="region-list">
                     <li><label class="checkbox-wrap"><input type="checkbox"/><span
                             class="checkbox-inner"></span>全部</label></li>
@@ -50,24 +50,28 @@
                 </ul>
             </div>
         </div>
-        <!-- <div class="right-container">
-            <div id="mapDemo" class="map-content"></div>
-        </div> -->
+        <!--<div class="right-container">-->
+            <!--<div id="mapDemo" class="map-content"></div>-->
+        <!--</div>-->
     </div>
     <div class="tab-panel history-log" id="historyLog">
         <div class="table-wrap">
             <div class="oper-btns clearfix">
-                <button class="btn active" id = "D">Current</button>
+
+                <button class="btn" id = "D">Current</button>
                 <button class="btn" id = "W">Last week</button>
                 <button class="btn" id = "M">Last month</button>
                 <button class="btn" id = "Y">Last year</button>
-                <!--日期选择空间-->
-                <!--<div class="ta_date align-right">-->
-                    <!--<span class="date_title" id="dateDemo"></span>-->
-                    <!--<a class="opt_sel" id="inputTriggerDemo" href="#">-->
-                        <!--<i class="i_orderd"></i>-->
-                    <!--</a>-->
-                <!--</div>-->
+                <!--<button class="btn" id = "currentButton">Current</button>-->
+                <!--<button class="btn" id = "weekButton">Last week</button>-->
+                <!--<button class="btn" id = "monthButton">Last month</button>-->
+                <!--<button class="btn" id = "yearButton">Last year</button>-->
+                <div class="ta_date align-right">
+                    <span class="date_title" id="dateDemo"></span>
+                    <a class="opt_sel" id="inputTriggerDemo" href="#">
+                         <i class="i_orderd"></i>
+                    </a>
+                </div>
             </div>
             <div class="left-container">
                 <table class="history-log-table" width="100%">
@@ -101,10 +105,10 @@
                 <table class="details-table">
                     <thead>
                     <tr>
-                        <th style="width: 120px !important;">Host name</th>
-                        <th style="width: 120px !important;">Network type</th>
-                        <th style="width: 140px !important;">IP address</th>
-                        <th style="width: 120px !important;">Usability</th>
+                        <th>Host name</th>
+                        <th>Network type</th>
+                        <th>IP address</th>
+                        <th>Usability</th>
                     </tr>
                     </thead>
                 </table>
@@ -122,39 +126,20 @@
 <script src="js/dateRange.js"></script>
 <script src="js/fnReloadAjax.js"></script>
 <script>
+
+
+
     $(document).ready(function () {
+
+
         var $historyLogTable = $('.history-log-table');
         //切换tab页
-        $(".tabs .tab a").click(function (e) {
-          e.preventDefault()
-        })
-        // 地区选择
-        $(".region-list").on("click", "li", function (e) {
-          e.preventDefault()
-          var $this = $(this)
-          var currChecked = $this.find('input[type=checkbox]').is(":checked")
-          var lis = $this.parent().children()
-          var allCheckBtn = lis.first()
-          if ($this.is(':first-child')) {
-            $this.siblings().find('input[type=checkbox]').attr('checked', !currChecked)
-          } else {
-            var allChecked = true
-            lis.not(':first-child').not($this).each(function () {
-              allChecked = $(this).find('input[type=checkbox]').attr('checked')
-              if (!allChecked) return false
-            })
-            if (allChecked) {
-              allCheckBtn.find('input[type=checkbox]').attr('checked', !currChecked)
-            }
-          }
-          $this.find('input[type=checkbox]').attr('checked', !currChecked)
-        })
         $(".tabs .tab").click(function () {
             var _this = $(this);
             if (_this.hasClass('active')) return;
             var paneId = _this.find('a').attr('href');
             if (!paneId) return;
-            $('.tab-content .tab-panel.active').removeClass('active');
+            $('.tab-content .active').removeClass('active');
             $('.tabs .active').removeClass('active');
             $(paneId).addClass('active');
             _this.addClass('active');
@@ -163,7 +148,6 @@
             //开启服务器模式
             serverSide: true,
             bRetrieve: true,
-            //bDestory:true,
             //"ajax": {"url":"data/problem-equipment-data.txt", "dataSrc": "data"},
 
             'ajax': {
@@ -216,17 +200,14 @@
                 });
             }
         });
-//        problemEquipmentTable.column( 0 ).search(
-//
-//        ).draw();
+
         var historyLogTable = $('.history-log-table').DataTable({
 
 
             //开启服务器模式
             bRetrieve: true,
             serverSide: true,
-            //bDestory:true,
-            // "ajax": {"url":"data/detail-data.txt", "dataSrc": "data"},
+           // "ajax": {"url":"data/detail-data.txt", "dataSrc": "data"},
             "ajax": {"url":"/monitor/message/queryUsability?dateType=D", "dataSrc": "data"},
             "paging": false,
             "searching": false,
@@ -244,12 +225,10 @@
                     }
                 },
                 {
-                    "data":function (data,type,row) {
-                        console.log(data)
-                        console.log(row)
-                        return '<a class="view-more" style="cursor: pointer" >' + "详情" + '</a>';
+                      "data":function (data) {
+                          return '<a class="view-more" >' + "详情" + '</a>';
 
-                    },
+                      },
 
                 }
             ],
@@ -257,60 +236,50 @@
                 $('#historyLog').find(".dataTables_wrapper").mCustomScrollbar({
                     theme: "minimal"
                 });
-                $('.history-log-table tbody tr:first-child').addClass('active')
             }
         });
-        var detail_main =  $('.details-table').DataTable({
+
+
+
+
+
+          var detailTable = $('.details-table').DataTable({
+
             //开启服务器模式
             serverSide: true,
-            //"bDestory":true,
             "ajax": {"url":"/monitor/message/queryUsability?dateType=D", "dataSrc": "data.0.terminalList"},
             "paging": false,
             "searching": false,
             "info": false,
-            "oLanguage": {
-                "sZeroRecords": "对不起，没有数据"
-            },
+              "oLanguage": {
+                  "sZeroRecords": "对不起，没有数据"
+              },
 
-            "columns": [
+              "columns": [
                 {"data":"nick"},
-                {"data":"deviceType"},
                 {"data":"clientIp"},
                 {"data":"terminalUsability"}
             ]
-        });
+        })
 
-        var timeType = "D";
-        //here....
         $('.history-log-table tbody').on('click','a',function(){
             var data = historyLogTable.row( $(this).parents('tr') ).data();
             var table = $('.details-table').dataTable();
-            table.fnReloadAjax("/monitor/message/queryUsability?dateType="+timeType+"&ip="+data.ip);
-            $(this).closest('tr').addClass('active').siblings().removeClass('active')
+            //table.fnReloadAjax("data/detail-data2.txt");
+            table.fnReloadAjax("/monitor/message/queryUsability?dateType=D&ip="+data.ip);
 
         })
 
-
         //年月星期日 按钮点击时间
         $(".btn").on('click',function(){
-            $(this).addClass('active').siblings().each(function (index, item) {
-              $(item).removeClass('active')
-            })
+
             var table = $('.history-log-table').dataTable();
-
-
-            var table_detail = $('.details-table').dataTable();
-
-            timeType = $(this).attr("id");
-//            $('.history-log-table').dataTable().fnClearTable(false);
-//            $('.details-table').dataTable().fnClearTable(false);
-//            table.fnClearTable(false);
-//            table_detail.fnClearTable(false);
-
+            var table_detail = $('.details-table').dataTable()
             table.fnReloadAjax("/monitor/message/queryUsability?dateType="+$(this).attr("id"))
             table_detail.fnReloadAjax("/monitor/message/queryUsability?dateType="+$(this).attr("id"))
 
         })
+
 
 //        var myChart = echarts.init(document.getElementById('mapDemo'));
 //        myChart.setOption({
@@ -319,12 +288,12 @@
 //                map: 'chengdu'
 //            }]
 //        });
-//        var data = [
-//            {name: '高新区', value: 9},
-//            {name: '成华区', value: 12},
-//            {name: '金牛区', value: 100}
-//        ];
-//
+        var data = [
+            {name: '高新区', value: 9},
+            {name: '成华区', value: 12},
+            {name: '金牛区', value: 100}
+        ];
+
 //        $.getJSON('./data/chengdu.json', function (data) {
 //            echarts.registerMap('chengdu', data);
 //            var chart = echarts.init(document.getElementById('mapDemo'));
@@ -350,45 +319,39 @@
 //
 //            });
 //        });
-//        var dateRange = new pickerDateRange('dateDemo', {
-////            aRecent7Days : 'aRecent7DaysDemo3', //最近7天
-//            isTodayValid: false,
-//            //startDate : '2013-04-14',
-//            //endDate : '2013-04-21',
-//            //needCompare : true,
-//            //isSingleDay : true,
-//            //shortOpr : true,
-//            defaultText: ' 至 ',
-//            inputTrigger: 'inputTriggerDemo',
-//            theme: 'ta',
-//            success: function (obj) {
-////                $("#dCon_demo3").html('开始时间 : ' + obj.startDate + '<br/>结束时间 : ' + obj.endDate);
-//            }
-//        });
+        var dateRange = new pickerDateRange('dateDemo', {
+//            aRecent7Days : 'aRecent7DaysDemo3', //最近7天
+            isTodayValid: false,
+            //startDate : '2013-04-14',
+            //endDate : '2013-04-21',
+            //needCompare : true,
+            //isSingleDay : true,
+            //shortOpr : true,
+            defaultText: ' 至 ',
+            inputTrigger: 'inputTriggerDemo',
+            theme: 'ta',
+            success: function (obj) {
+//                $("#dCon_demo3").html('开始时间 : ' + obj.startDate + '<br/>结束时间 : ' + obj.endDate);
+            }
+        });
+
+
+        var flag = true;
+        $("#area").click(function () {
+            if(flag){
+                $("#areaList").show();
+                flag = false
+            }else {
+                $("#areaList").hide();
+                flag = true;
+            }
+        })
+
+
+
+
 
     });
-    //加载波浪
-    var tc = $('.tab-content');
-    var SW;
-    function loadWave() {
-        if(SW) SW.remove();
-        var w = tc.width();
-        var h = tc.height();
-        SW = new SiriWave({
-            container: tc[0],
-            width: w,
-            height: h
-        });
-        SW.setSpeed(0.05);
-        SW.start();
-        SW.setNoise(0.5);
-
-    }
-    loadWave();
-
-    window.onresize=function () {
-        loadWave();
-    }
 </script>
 </body>
 </html>
