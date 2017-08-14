@@ -1,11 +1,16 @@
 package com.doraemon.monitor.service;
 
+import com.doraemon.monitor.controller.base.Paging;
 import com.doraemon.monitor.controller.protocol.SubIpsPro;
 import com.doraemon.monitor.dao.mapper.ClientMapper;
 import com.doraemon.monitor.dao.mapper.TerminalMapper;
 import com.doraemon.monitor.dao.models.Client;
 import com.doraemon.monitor.dao.models.Terminal;
+import com.doraemon.monitor.util.Helpers;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.google.common.base.Preconditions;
+import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +22,7 @@ import java.util.Map;
  * Created by zbs on 2017/7/4.
  */
 @Service
+@Log4j
 public class ConfigService {
 
     @Autowired
@@ -30,38 +36,49 @@ public class ConfigService {
      * @param ip
      * @return
      */
-    public Client queryClient(String ip) {
-        Preconditions.checkState(ip != null && !ip.equals(""), "客户端IP不能为空.");
-        Client client = clientMapper.selectByPrimaryKey(ip);
-        if (client != null) {
-            client.setTerminalList(queryTerminal(client.getIp()));
-        }
-        return client;
-    }
-
-    /**
-     * 查询全部
-     *
-     * @return
-     */
-    public List<Client> queryClientAll() {
-        List<Client> clientList = clientMapper.selectAll();
-        for (Client client : clientList) {
-            if (clientList != null) {
-                client.setTerminalList(queryTerminal(client.getIp()));
-            }
-        }
+    public List<Client> queryClient(String ip, String region) {
+        Client queryClient = new Client();
+        queryClient.setIp(ip);
+        queryClient.setRegion(region);
+        List<Client> clientList = clientMapper.select(queryClient);
+        setTerminal(clientList);
         return clientList;
     }
 
     /**
+     * 对client中的terminal赋值
+     * @param clientList
+     */
+    private void setTerminal(List<Client> clientList) {
+        if (clientList == null)
+            return;
+        for (Client client : clientList)
+            client.setTerminalList(queryTerminal(client.getIp()));
+    }
+
+    /**
+     * 查询终端--分页
+     * @param ip
+     * @param region
+     * @param paging
+     * @return
+     */
+    public PageInfo<Client> queryClientPageInfo(String ip, String region,Paging paging){
+        log.info("查询终端. ip:"+ip+" region:"+region);
+        if(!Helpers.isNullOrEmpty(paging))
+            PageHelper.startPage(paging.getPageSize(),paging.getPageNum(),paging.getOrderBy());
+        return new PageInfo<>(queryClient(ip,region));
+    }
+
+    /**
      * 根据ip查Terminal
+     *
      * @param ip
      * @return
      */
     private List<Terminal> queryTerminal(String ip) {
         //by csrr
-        List<Terminal> list =  terminalMapper.selectByClientIpOffTime(ip);
+        List<Terminal> list = terminalMapper.selectByClientIpOffTime(ip);
         return list;
     }
 
@@ -78,7 +95,7 @@ public class ConfigService {
         Preconditions.checkState(ip != null && !ip.equals(""), "客户端IP不能为空.");
         Preconditions.checkState(nick != null && !nick.equals(""), "昵称不能为空.");
         //查询 client 是否存在
-        Preconditions.checkState(queryClient(ip) == null, "该ip已经存在,请勿重复添加.");
+        Preconditions.checkState(queryClient(ip,null) == null, "该ip已经存在,请勿重复添加.");
         //添加client
         Client newClient = new Client();
         newClient.setIp(ip);
@@ -87,7 +104,7 @@ public class ConfigService {
         newClient.setShopId(shopId);
         //保存 client
         Preconditions.checkState(clientMapper.insert(newClient) == 1, "保存client失败.");
-        for (SubIpsPro subIpsPro : subIps ) {
+        for (SubIpsPro subIpsPro : subIps) {
             Terminal newTerminal = new Terminal();
             newTerminal.setNick(subIpsPro.getNick());
             newTerminal.setTerminalIp(subIpsPro.getIp());
