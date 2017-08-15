@@ -37,7 +37,7 @@
                 <ul class="region-list">
                     <li><label class="checkbox-wrap"><input type="checkbox"/><span
                             class="checkbox-inner"></span>全部</label></li>
-                    <li><label class="checkbox-wrap"><input type="checkbox"/><span
+                    <!-- <li><label class="checkbox-wrap"><input type="checkbox"/><span
                             class="checkbox-inner"></span>金牛区</label></li>
                     <li><label class="checkbox-wrap"><input type="checkbox"/><span
                             class="checkbox-inner"></span>青羊区</label></li>
@@ -46,7 +46,7 @@
                     <li><label class="checkbox-wrap"><input type="checkbox"/><span
                             class="checkbox-inner"></span>武侯区</label></li>
                     <li><label class="checkbox-wrap"><input type="checkbox"/><span
-                            class="checkbox-inner"></span>锦江区</label></li>
+                            class="checkbox-inner"></span>锦江区</label></li> -->
                 </ul>
             </div>
         </div>
@@ -84,7 +84,7 @@
                     <ul class="region-list">
                         <li><label class="checkbox-wrap"><input type="checkbox"/><span class="checkbox-inner"></span>全部</label>
                         </li>
-                        <li><label class="checkbox-wrap"><input type="checkbox"/><span class="checkbox-inner"></span>金牛区</label>
+                        <!-- <li><label class="checkbox-wrap"><input type="checkbox"/><span class="checkbox-inner"></span>金牛区</label>
                         </li>
                         <li><label class="checkbox-wrap"><input type="checkbox"/><span class="checkbox-inner"></span>青羊区</label>
                         </li>
@@ -93,7 +93,7 @@
                         <li><label class="checkbox-wrap"><input type="checkbox"/><span class="checkbox-inner"></span>武侯区</label>
                         </li>
                         <li><label class="checkbox-wrap"><input type="checkbox"/><span class="checkbox-inner"></span>锦江区</label>
-                        </li>
+                        </li> -->
                     </ul>
                 </div>
             </div>
@@ -128,6 +128,41 @@
         $(".tabs .tab a").click(function (e) {
           e.preventDefault()
         })
+        // 获取可选地区
+        $.ajax({
+          type: 'get',
+          url: '/monitor/config/queryAllRegion',
+          success: function (res) {
+            var data = res.data
+            var fragment = ''
+            for (var i = 0, len = data.length; i < len; i++) {
+              fragment += '<li><label class="checkbox-wrap"><input type="checkbox"/><span class="checkbox-inner"></span>' + data[i] + '</label></li>'
+            }
+            $('.popup .region-list').each(function (index, item) {
+              $(item).append(fragment)
+            }).each(function (index, item) {
+              $(item).find('input[type=checkbox]').each(function (index, item) {
+                $(item).attr('checked', true)
+              })
+            })
+
+          }
+        })
+        // 控制地区选择展开
+        $('.problem-equipment-table, .history-log-table').each(function (index, item) {
+          $(item).find('thead tr th:first-child').on('click', function (e) {
+            e.stopPropagation()
+            var $this = $(this)
+            $this.closest('.tab-panel').find('.popup').show()
+          })
+        })
+        $(document).on('click', function (e) {
+          var target = e.target
+          if (!$(target).closest('.popup')[0]) {
+            $('.popup').hide()
+          }
+        })
+
         // 地区选择
         $(".region-list").on("click", "li", function (e) {
           e.preventDefault()
@@ -148,6 +183,34 @@
             }
           }
           $this.find('input[type=checkbox]').attr('checked', !currChecked)
+          // 选中的地区
+          var checked = $.map(lis.filter(function (index, item) {
+            return $(item).find('input[type=checkbox]').attr('checked')
+          }), function (item, index) {
+            return $(item).text()
+          })
+          if (checked.length === lis.length) {
+            checked = ''
+          } else {
+            checked = checked.join(',')
+          }
+
+          var activeTab = $('.tabs').find('.tab.active')
+          var activeTabIndex = activeTab.next()[0] ? 0 : 1
+          if (activeTabIndex === 0) {
+            var table = $('.problem-equipment-table').dataTable();
+            table.fnReloadAjax("/monitor/config/queryTerminalList"+(checked ? '?region=' + checked : checked));
+          } else {
+            var table = $('.history-log-table').dataTable();
+
+
+            var table_detail = $('.details-table').dataTable();
+
+            var timeType = $('.oper-btns').find('.btn.active').attr("id");
+
+            table.fnReloadAjax("/monitor/message/queryUsability?dateType="+timeType + (checked ? '&region=' + checked : checked))
+            table_detail.fnReloadAjax("/monitor/message/queryUsability?dateType="+timeType + (checked ? '&region=' + checked : checked))
+          }
         })
         $(".tabs .tab").click(function () {
             var _this = $(this);
@@ -257,7 +320,9 @@
                 $('#historyLog').find(".dataTables_wrapper").mCustomScrollbar({
                     theme: "minimal"
                 });
-                $('.history-log-table tbody tr:first-child').addClass('active')
+            },
+            "drawCallback": function () {
+              $('.history-log-table tbody tr:first-child').addClass('active');
             }
         });
         var detail_main =  $('.details-table').DataTable({
@@ -287,7 +352,6 @@
             var table = $('.details-table').dataTable();
             table.fnReloadAjax("/monitor/message/queryUsability?dateType="+timeType+"&ip="+data.ip);
             $(this).closest('tr').addClass('active').siblings().removeClass('active')
-
         })
 
 
