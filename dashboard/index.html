@@ -153,7 +153,7 @@
           $(item).find('thead tr th:first-child').on('click', function (e) {
             e.stopPropagation()
             var $this = $(this)
-            $this.closest('.tab-panel').find('.popup').show()
+            $this.closest('.tab-panel').find('.popup').toggle()
           })
         })
         $(document).on('click', function (e) {
