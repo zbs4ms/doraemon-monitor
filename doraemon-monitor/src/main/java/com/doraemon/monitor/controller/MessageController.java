@@ -72,6 +72,7 @@ public class MessageController extends BaseController {
     @RequestMapping(value = "queryUsability", method = RequestMethod.GET)
     @ResponseBody
     public JSONObject queryMessage(@ApiParam(value = "客户端IP",required = false) @RequestParam(value = "ip",required = false) String ip,
+                                   @ApiParam(value = "客户端区域",required = false) @RequestParam(value = "region",required = false) String region,
                                    @ApiParam(value = "时间类型(Y/M/W/D)",required = true) @RequestParam(value = "dateType",required = true) String dateType,
                                    @ApiParam(value = "页数",required = false) @RequestParam(value = "page",required = false) Integer page,
                                    @ApiParam(value = "多少条",required = false) @RequestParam(value = "row",required = false) Integer row) throws Exception {
@@ -93,7 +94,7 @@ public class MessageController extends BaseController {
                 throw new Exception("错误的类型");
         }
         //PageInfo<Client> monitorPage = countService.totalClientErrorTime(ip,dateBean.getStartDate(),dateBean.getStopDate(),PagePro.create(page,row));
-        List<Client> clientList = usabilityService.selectClientUsability(ip,dateBean,dateType);
+        List<Client> clientList = usabilityService.selectClientUsability(ip,region,dateBean,dateType);
 
         //add csrr...
         if(clientList == null){

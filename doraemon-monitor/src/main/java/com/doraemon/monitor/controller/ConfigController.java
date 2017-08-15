@@ -41,6 +41,7 @@ public class ConfigController extends BaseController {
                           @ApiParam(value = "客户端别名", required = true) @RequestParam(value = "nick", required = true) String nick,
                           @ApiParam(value = "客户端区域", required = true) @RequestParam(value = "region", required = true) String region,
                           @ApiParam(value = "客户端门店ID", required = true) @RequestParam(value = "shopId", required = true) String shopId) throws Exception {
+
         List<SubIpsPro> subIpsList = JSONArray.parseArray(subIps,SubIpsPro.class);
         configService.add(subIpsList,ip,nick,region,shopId);
         return ResponseWrapper().addData("ok").ExeSuccess();
@@ -65,30 +66,30 @@ public class ConfigController extends BaseController {
         return ResponseWrapper().addData("ok").ExeSuccess();
     }
 
+    @ApiOperation(value = "查询全部的地区配置")
+    @RequestMapping(value = "queryAllRegion", method = RequestMethod.GET)
+    @ResponseBody
+    public JSONObject queryAllRegion() throws Exception {
+        List<String> regionList = configService.queryAllRegion();
+        return ResponseWrapper().addData(regionList).ExeSuccess();
+    }
+
     @ApiOperation(value = "查询配置(什么都不传入默认查询全/....部)")
     @RequestMapping(value = "queryConfig", method = RequestMethod.GET)
     @ResponseBody
-    public JSONObject queryConfig(@ApiParam(value = "客户端IP",required = false) @RequestParam(value = "ip",required = false) String ip) throws Exception {
-        List<Client> clientList = new ArrayList<Client>();
-        if(ip == null) {
-            clientList = configService.queryClientAll();
-        }else {
-            clientList.add(configService.queryClient(ip));
-        }
+    public JSONObject queryConfig(
+            @ApiParam(value = "客户端IP",required = false) @RequestParam(value = "ip",required = false) String ip) throws Exception {
+        List<Client> clientList = configService.queryClient(ip,null);
         return ResponseWrapper().addData(clientList).ExeSuccess();
     }
 
     @ApiOperation(value = "查询终端(什么都不传入默认查询全/....部)")
     @RequestMapping(value = "queryTerminalList", method = RequestMethod.GET)
     @ResponseBody
-    public JSONObject queryTerminalList(@ApiParam(value = "客户端IP",required = false) @RequestParam(value = "ip",required = false) String ip) throws Exception {
-        List<Client> clientList = new ArrayList<Client>();
-        if(ip == null) {
-            //csrr
-            clientList = configService.queryClientAll();
-        }else {
-            clientList.add(configService.queryClient(ip));
-        }
+    public JSONObject queryTerminalList(
+            @ApiParam(value = "客户端IP",required = false) @RequestParam(value = "ip",required = false) String ip,
+            @ApiParam(value = "客户端区域",required = false) @RequestParam(value = "region",required = false) String region) throws Exception {
+        List<Client> clientList = configService.queryClient(ip,region);
         List<TerminalPro> terminalProList = new ArrayList<>();
         log.info("查询出的终端原始信息+"+ JSON.toJSONString(terminalProList));
         for(Client client : clientList){
