@@ -341,7 +341,11 @@
                 {"data":"nick"},
                 {"data":"deviceType"},
                 {"data":"clientIp"},
-                {"data":"terminalUsability"}
+                {"data":"terminalUsability",
+                    render: function (data, type, row, meta) {
+                        return data===1?'100% ':
+                            '0%';
+                    }}
             ]
         });
 
