@@ -11,7 +11,6 @@ import com.doraemon.monitor.dao.models.Terminal;
 import com.doraemon.monitor.dao.models.TerminalKey;
 import com.doraemon.monitor.util.Common;
 import com.doraemon.monitor.util.HttpAgent;
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.base.Preconditions;
@@ -52,7 +51,6 @@ public class MessageSerive {
         for (MessagePro messagePro : message) {
             validMessage(messagePro, ip,client);
             saveMessage(messagePro, ip);
-            updateTerminalDate(client.getIp(),messagePro.getIp(),messagePro.getTime());
         }
     }
 
@@ -60,13 +58,15 @@ public class MessageSerive {
      * 更新终端时间
      * @param clientIp
      * @param terminalIp
-     * @param date
+     * @param messagePro
      */
-    private void updateTerminalDate(String clientIp,String terminalIp,Date date){
+    private void updateTerminal(String clientIp,String terminalIp,MessagePro messagePro,Date offTime){
         Terminal updateTerminal = new Terminal();
         updateTerminal.setClientIp(clientIp);
         updateTerminal.setTerminalIp(terminalIp);
-        updateTerminal.setUpdateTime(date);
+        updateTerminal.setUpdateTime(messagePro.getTime());
+        updateTerminal.setStatus(messagePro.getStatus());
+        updateTerminal.setOffTime(offTime);
         Preconditions.checkState(terminalMapper.updateByPrimaryKeySelective(updateTerminal)==1,"更新终端时间失败");
     }
 
@@ -78,36 +78,22 @@ public class MessageSerive {
     private void validMessage(MessagePro messagePro, String ip,Client client) throws Exception {
         if(messagePro == null || ip == null)
             return;
-        Terminal selectTerminal = new Terminal();
-        selectTerminal.setClientIp(ip);
-        selectTerminal.setTerminalIp(messagePro.getIp());
-        Terminal terminal = terminalMapper.selectByClientIpAndTerminalIp(selectTerminal);
+        TerminalKey terminalKey = new TerminalKey(ip,messagePro.getIp());
+        Terminal terminal = terminalMapper.selectByPrimaryKey(terminalKey);
         if(terminal == null)
             return;
-        //如果状态不相等,更新状态
-        if(!String.valueOf(messagePro.getStatus()).equals(terminal.getStatus())){
-            Terminal updateStatus = new Terminal();
-            updateStatus.setClientIp(ip);
-            updateStatus.setTerminalIp(messagePro.getIp());
-            updateStatus.setStatus(String.valueOf(messagePro.getStatus()));
-            terminalMapper.updateByPrimaryKeySelective(updateStatus);
-        }
-        TerminalKey updateTerminalKey = new TerminalKey();
-        updateTerminalKey.setTerminalIp(messagePro.getIp());
-        updateTerminalKey.setClientIp(ip);
         switch (messagePro.getStatus()){
             case "-1":
                 //第一次断开更新断开时间
                 if(terminal.getOffTime() == null || terminal.getWarningNum() == null || terminal.getWarningNum()<Common.SMS_NUMBER) {
-                    Terminal updateTerminal = new Terminal(updateTerminalKey);
-                    updateTerminal.setOffTime(messagePro.getTime());
-                    terminalMapper.disconnect(updateTerminal);
+                    updateTerminal(terminal.getClientIp(),terminal.getTerminalIp(),messagePro,terminal.getOffTime());
+                    terminalMapper.disconnect(new TerminalKey(terminal.getClientIp(),terminal.getTerminalIp()));
                     sendSMS(terminal.getPhone(),client.getNick(),terminal.getNick(),client.getIp());
                 }
                 break;
             default:
                 if(terminal.getOffTime() != null)
-                    terminalMapper.recovery(updateTerminalKey);
+                    terminalMapper.recovery(new TerminalKey(terminal.getClientIp(),terminal.getTerminalIp()));
                 break;
         }
     }
