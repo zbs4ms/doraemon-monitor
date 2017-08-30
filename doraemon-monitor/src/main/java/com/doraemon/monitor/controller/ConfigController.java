@@ -13,6 +13,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections.list.TransformedList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -90,10 +91,10 @@ public class ConfigController extends BaseController {
             @ApiParam(value = "客户端IP",required = false) @RequestParam(value = "ip",required = false) String ip,
             @ApiParam(value = "客户端区域",required = false) @RequestParam(value = "region",required = false) String region) throws Exception {
         List<Client> clientList = configService.queryClient(ip,region);
-        List<TerminalPro> terminalProList = new ArrayList<>();
-        log.info("查询出的终端原始信息+"+ JSON.toJSONString(terminalProList));
+        log.info("查询出的终端原始信息+"+ JSON.toJSONString(clientList));
         if(clientList == null)
             return ResponseWrapper().addData(null).ExeSuccess();
+        List<TerminalPro> terminalProList = new ArrayList<>();
         for(Client client : clientList){
             for(Terminal terminal : client.getTerminalList()){
                 TerminalPro terminalPro = new TerminalPro(client,terminal);

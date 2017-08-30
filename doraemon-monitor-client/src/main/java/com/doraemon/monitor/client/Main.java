@@ -28,6 +28,8 @@ public class Main implements CommandLineRunner {
 
 
     public static void main(String[] args) throws Exception {
+        //todo: 测试用
+        args[0]="z001";
         if(args == null || args.length<1 ||args[0].equals(""))
             throw new Exception("必须指定本机的标识是.");
         log.info("本机标标识为 ---> "+args[0]+"  长度:"+args.length);

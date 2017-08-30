@@ -41,7 +41,7 @@ public class SendMessageWorker {
                 HttpAgent.create().sendPost(Common.ADD_MESSAGE_URL, param);
             }
         }catch (Exception e){
-            log.error(e);
+            log.error(e.getMessage());
         }
     }
 }

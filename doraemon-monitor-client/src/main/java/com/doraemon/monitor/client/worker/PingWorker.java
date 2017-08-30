@@ -54,7 +54,7 @@ public class PingWorker {
             }
             concurrentLinkedQueue.add(messageProList);
         }catch (Exception e){
-            log.error(e);
+            log.error(e.getMessage());
         }
     }
 
@@ -68,9 +68,9 @@ public class PingWorker {
                     return "1";
                 return "-1";
             case "LAN":
-                if (address.isReachable(10))
-                    return "0";
                 if (address.isReachable(20))
+                    return "0";
+                if (address.isReachable(40))
                     return "1";
                 return "-1";
             case "AP":

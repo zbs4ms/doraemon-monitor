@@ -13,4 +13,16 @@ public class TerminalPro {
 
     private String deviceType;
 
+    public String getDeviceType(){
+        if(terminalIp == null)
+            return null;
+        String[] mark = terminalIp.split("[.]");
+        switch (mark[3]){
+            case "1":
+                return "WAN";
+            default:
+                return "LAN";
+        }
+    }
+
 }

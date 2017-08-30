@@ -1,5 +1,6 @@
 server:
  port: 41801
+
     # 统一接口访问前缀
  servlet-path: /monitor-client
 
