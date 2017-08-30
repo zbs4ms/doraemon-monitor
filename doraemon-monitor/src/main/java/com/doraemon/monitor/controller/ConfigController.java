@@ -102,11 +102,13 @@ public class ConfigController extends BaseController {
         }
 
         if(terminalProList.size() == 0){
-
+            log.info("列表为空，构造数据...");
             Client client = new Client();
             Terminal terminal = new Terminal();
             TerminalPro terminalPro = new TerminalPro(client,terminal);
             terminalProList.add(terminalPro);
+        }else {
+            log.info("列表长度："+terminalProList.size());
         }
         return ResponseWrapper().addData(terminalProList).ExeSuccess();
     }
