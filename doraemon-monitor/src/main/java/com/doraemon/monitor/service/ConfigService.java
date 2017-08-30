@@ -121,10 +121,10 @@ public class ConfigService {
         }
     }
 
-    private String getType(String ip) {
-        if(ip == null)
-            return null;
-        String[] ips = ip.split(".");
+    private String getType(String ip) throws Exception {
+        if(ip == null || ip.split("[.]").length!=4)
+            throw new Exception("无效的IP ip="+ip);
+        String[] ips = ip.split("[.]");
         if(ips == null || ips.length != 4)
             return null;
         switch (ips[3]){

@@ -47,13 +47,28 @@ public class MessageSerive {
     public void add(List<MessagePro> message, String ip) throws Exception {
         //todo:参数校验没写
         Client client = clientMapper.selectByPrimaryKey(ip);
-        Preconditions.checkState(client != null, "该IP没有注册.IP->>"+ip);
+        Preconditions.checkState(client != null, "该设备没有注册.IP->>"+ip);
         for (MessagePro messagePro : message) {
             validMessage(messagePro, ip,client);
             saveMessage(messagePro, ip);
+            updateTerminalDate(client.getIp(),messagePro.getIp(),messagePro.getTime());
         }
     }
 
+    /**
+     * 更新终端时间
+     * @param clientIp
+     * @param terminalIp
+     * @param date
+     */
+    private void updateTerminalDate(String clientIp,String terminalIp,Date date){
+        Terminal updateTerminal = new Terminal();
+        updateTerminal.setClientIp(clientIp);
+        updateTerminal.setTerminalIp(terminalIp);
+        updateTerminal.setUpdateTime(date);
+        Preconditions.checkState(terminalMapper.updateByPrimaryKeySelective(updateTerminal)==1,"更新终端时间失败");
+
+    }
 
     /**
      * 校验是否异常

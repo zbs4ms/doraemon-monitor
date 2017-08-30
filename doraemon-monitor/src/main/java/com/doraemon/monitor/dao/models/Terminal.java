@@ -23,6 +23,8 @@ public class Terminal extends TerminalKey {
 
     private String phone;
 
+    private Date updateTime;
+
     @Transient  //终端可用值
     private BigDecimal terminalUsability;
 
