@@ -44,7 +44,7 @@ public class PingWorker {
             if (clientPro == null)
                 return;
             for (TerminalPro terminalPro : clientPro.getTerminalList()) {
-                InetAddress address = InetAddress.getByName(terminalPro.getTerminalIp());
+                InetAddress address = InetAddress.getByName(terminalPro.getTerminalIp().trim());
                 MessagePro messagePro = new MessagePro();
                 messagePro.setStatus(getStatus(address, terminalPro.getDeviceType()));
                 messagePro.setTime(new Date());

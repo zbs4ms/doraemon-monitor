@@ -85,10 +85,13 @@ public class MessageSerive {
         switch (messagePro.getStatus()){
             case "-1":
                 //第一次断开更新断开时间
-                if(terminal.getOffTime() == null || terminal.getWarningNum() == null || terminal.getWarningNum()<Common.SMS_NUMBER) {
+                if(terminal.getOffTime() == null || terminal.getWarningNum() == null) {
                     updateTerminal(terminal.getClientIp(),terminal.getTerminalIp(),messagePro,terminal.getOffTime());
                     terminalMapper.disconnect(new TerminalKey(terminal.getClientIp(),terminal.getTerminalIp()));
-                    sendSMS(terminal.getPhone(),client.getNick(),terminal.getNick(),client.getIp());
+                }
+                if(terminal.getWarningNum()<Common.SMS_NUMBER) {
+                    terminalMapper.warning(new TerminalKey(terminal.getClientIp(),terminal.getTerminalIp()));
+                    sendSMS(terminal.getPhone(), client.getNick(), terminal.getNick(), client.getIp());
                 }
                 break;
             default:
