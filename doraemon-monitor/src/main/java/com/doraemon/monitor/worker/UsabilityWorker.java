@@ -58,7 +58,7 @@ public class UsabilityWorker {
    // @Scheduled(cron = "*/20 * * * * ?")
     @Scheduled(cron = "${usability.lastMonthCron}")
     public void lastMonthUsability() throws Exception {
-        DateTool.DateBean dateBean = DateTool.create().getLastWeek();
+        DateTool.DateBean dateBean = DateTool.create().getLastMonth();
         log.info("统计上个月的数据,时间段:  开始时间=" + dateBean.getStartDate() + "  结束时间:" + dateBean.getStopDate());
         statisticalAndCommit(dateBean, "M");
     }
