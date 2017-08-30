@@ -27,16 +27,21 @@ public class SendMessageWorker {
     /**
      * 每5分钟轮训一次,发送5分钟内收集到的终端信息
      */
-    @Scheduled(cron="0 0/5 * * * ?")
-    public void send() throws Exception {
-        List list = new ArrayList();
-        while (!concurrentLinkedQueue.isEmpty()){
-             list.addAll(concurrentLinkedQueue.poll());
-        }
-        if(list.size()>0) {
-            String param = "message="+JSON.toJSONString(list)+"&ip="+Main.LOCAL_IP;
-            HttpAgent.create().sendPost(Common.ADD_MESSAGE_URL, param);
-            log.info("发送监控信息到服务器端: "+Common.ADD_MESSAGE_URL+"?"+param);
+    //@Scheduled(cron="0 0/5 * * * ?")
+    @Scheduled(cron = "${usability.sendCron}")
+    public void send(){
+        try {
+            List list = new ArrayList();
+            while (!concurrentLinkedQueue.isEmpty()) {
+                list.addAll(concurrentLinkedQueue.poll());
+            }
+            if (list.size() > 0) {
+                String param = "message=" + JSON.toJSONString(list) + "&ip=" + Main.LOCAL_IP;
+                log.info("发送监控信息到服务器端: " + Common.ADD_MESSAGE_URL + "?" + param);
+                HttpAgent.create().sendPost(Common.ADD_MESSAGE_URL, param);
+            }
+        }catch (Exception e){
+            log.error(e);
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.doraemon.monitor.worker;
 
 
+import com.alibaba.fastjson.JSON;
 import com.doraemon.monitor.dao.mapper.ClientMapper;
 import com.doraemon.monitor.dao.mapper.ClientUsabilityMapper;
 import com.doraemon.monitor.dao.mapper.TerminalUsabilityMapper;
@@ -39,8 +40,9 @@ public class UsabilityWorker {
      *
      * @throws Exception
      */
-   // @Scheduled(cron = "0 0 1 1 1 ?")
-    @Scheduled(cron = "*/30 * * * * ?")
+    //@Scheduled(cron = "0 0 1 1 1 ?")
+   // @Scheduled(cron = "*/30 * * * * ?")
+    @Scheduled(cron = "${usability.lastYearCron}")
     public void lastYearUsability() throws Exception {
         DateTool.DateBean dateBean = DateTool.create().getLastYear();
         log.info("统计上年的数据,时间段:  开始时间=" + dateBean.getStartDate() + "  结束时间:" + dateBean.getStopDate());
@@ -53,7 +55,8 @@ public class UsabilityWorker {
      * @throws Exception
      */
    // @Scheduled(cron = "0 0 1 1 * ?")
-    @Scheduled(cron = "*/20 * * * * ?")
+   // @Scheduled(cron = "*/20 * * * * ?")
+    @Scheduled(cron = "${usability.lastMonthCron}")
     public void lastMonthUsability() throws Exception {
         DateTool.DateBean dateBean = DateTool.create().getLastWeek();
         log.info("统计上个月的数据,时间段:  开始时间=" + dateBean.getStartDate() + "  结束时间:" + dateBean.getStopDate());
@@ -65,8 +68,9 @@ public class UsabilityWorker {
      *
      * @throws Exception
      */
-   // @Scheduled(cron = "0 0 1 ? * MON")
-    @Scheduled(cron = "*/10 * * * * ?")
+    //@Scheduled(cron = "0 0 1 ? * MON")
+    //@Scheduled(cron = "*/10 * * * * ?")
+    @Scheduled(cron = "${usability.lastWeekCron}")
     public void lastWeeksUsability() throws Exception {
         DateTool.DateBean dateBean = DateTool.create().getLastWeek();
         log.info("统计上周的数据,时间段:  开始时间=" + dateBean.getStartDate() + "  结束时间:" + dateBean.getStopDate());
@@ -78,7 +82,8 @@ public class UsabilityWorker {
      *
      * @throws Exception
      */
-    @Scheduled(cron = "*/5 * * * * ?")
+    //@Scheduled(cron = "*/5 * * * * ?")
+    @Scheduled(cron = "${usability.lastDayCron}")
     public void lastDayUsability() throws Exception {
         DateTool.DateBean dateBean = DateTool.create().getLastDay();
         log.info("统计昨天的数据,时间段:  开始时间=" + dateBean.getStartDate() + "  结束时间:" + dateBean.getStopDate());
@@ -100,8 +105,11 @@ public class UsabilityWorker {
         for (Client client : clientList) {
             //获取统计的数据
             Client statisticalData = countService.totalClientErrorTimeByIpNotNull(client.getIp(), dateBean.getStartDate(), dateBean.getStopDate());
-            if (statisticalData == null)
+            if (statisticalData == null) {
+                log.info("对 --> "+ JSON.toJSONString(client) +" 进行统计没有统计数据.");
                 continue;
+            }
+            log.info("对 --> "+ JSON.toJSONString(client) +" 进行统计. 数据为 --> "+JSON.toJSONString(statisticalData));
             //保存或更新统计数据
             usabilityService.updateOrInsertClientUsability(timeType, client.getIp(), dateBean.getStartDate(), statisticalData.getClientUsability());
             if (statisticalData.getTerminalList() == null || statisticalData.getTerminalList().size() < 1)

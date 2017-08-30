@@ -36,7 +36,7 @@ public class ConfigController extends BaseController {
     @ApiOperation(value = "增加配置")
     @RequestMapping(value = "addConfig", method = RequestMethod.POST)
     @ResponseBody
-    public JSONObject add(@ApiParam(value = "子IP列表", required = true) @RequestParam(value = "subIps", required = true) String subIps,
+    public JSONObject add(@ApiParam(value = "子IP列表[{'ip':'**';'nick':'**';'phone';'****'},{'ip':'**';'nick':'**';'phone';'****'}]", required = true) @RequestParam(value = "subIps", required = true) String subIps,
                           @ApiParam(value = "客户端IP", required = true) @RequestParam(value = "ip", required = true) String ip,
                           @ApiParam(value = "客户端别名", required = true) @RequestParam(value = "nick", required = true) String nick,
                           @ApiParam(value = "客户端区域", required = true) @RequestParam(value = "region", required = true) String region,
@@ -92,6 +92,8 @@ public class ConfigController extends BaseController {
         List<Client> clientList = configService.queryClient(ip,region);
         List<TerminalPro> terminalProList = new ArrayList<>();
         log.info("查询出的终端原始信息+"+ JSON.toJSONString(terminalProList));
+        if(clientList == null)
+            return ResponseWrapper().addData(null).ExeSuccess();
         for(Client client : clientList){
             for(Terminal terminal : client.getTerminalList()){
                 TerminalPro terminalPro = new TerminalPro(client,terminal);

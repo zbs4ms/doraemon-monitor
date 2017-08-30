@@ -126,6 +126,8 @@ public class CountService {
      * @return
      */
     private BigDecimal usability(BigDecimal errorTime, BigDecimal deviceNumber, BigDecimal days) {
+        if(errorTime == null)
+            return BigDecimal.ZERO;
         BigDecimal one = errorTime;
         if (one.equals(BigDecimal.ZERO))
             return BigDecimal.ONE.subtract(one);

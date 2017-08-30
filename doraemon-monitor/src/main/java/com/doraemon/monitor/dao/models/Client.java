@@ -1,5 +1,6 @@
 package com.doraemon.monitor.dao.models;
 
+import com.alibaba.fastjson.JSON;
 import lombok.Data;
 
 import javax.persistence.Id;
@@ -26,5 +27,6 @@ public class Client {
 
     @Transient  //门店可用值
     private BigDecimal clientUsability;
+
 
 }

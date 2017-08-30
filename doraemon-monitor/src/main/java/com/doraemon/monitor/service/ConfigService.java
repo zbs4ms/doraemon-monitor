@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -41,10 +42,12 @@ public class ConfigService {
      * @return
      */
     public List<Client> queryClient(String ip, String region) {
-        Client queryClient = new Client();
-        queryClient.setIp(ip);
-        queryClient.setRegion(region);
-        List<Client> clientList = clientMapper.select(queryClient);
+        if(ip == null)
+            return null;
+        Map<String,Object> queryClient = new HashMap<>();
+        queryClient.put("ip",ip);
+        queryClient.put("regions",region == null || "".equals(region) ? null : region.split(","));
+        List<Client> clientList = clientMapper.selectByIdAndRegion(queryClient);
         setTerminal(clientList);
         return clientList.size()==0 ? null : clientList;
     }
@@ -82,7 +85,7 @@ public class ConfigService {
      */
     private List<Terminal> queryTerminal(String ip) {
         //by csrr
-        List<Terminal> list = terminalMapper.selectByClientIpOffTime(ip);
+        List<Terminal> list = terminalMapper.selectByClientIp(ip);
         return list;
     }
 

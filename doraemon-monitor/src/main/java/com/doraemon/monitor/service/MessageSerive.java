@@ -100,7 +100,7 @@ public class MessageSerive {
 
     private void sendSMS( String phone,String clientNick,String terminalNick,String clientIp) throws Exception {
         String data =clientNick+"$"+terminalNick+"$("+clientIp+")"+"中断,请检查并修复";
-        //todo:怎么告警呢?
+        //todo:短信告警
         String param = "shopId="+Common.SMS_shopId+"&msgType="+Common.SMS_TYPE+"&phone="+phone+"&data="+data;
         log.info("调用短信接口进行告警:",Common.SMS_URL+"?"+param);
         String result =  HttpAgent.create().sendPost(Common.SMS_URL,param);
