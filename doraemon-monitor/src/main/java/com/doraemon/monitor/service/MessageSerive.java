@@ -60,13 +60,14 @@ public class MessageSerive {
      * @param terminalIp
      * @param messagePro
      */
-    private void updateTerminal(String clientIp,String terminalIp,MessagePro messagePro,Date offTime){
+    private void updateTerminal(String clientIp,String terminalIp,MessagePro messagePro,Date offTime,Integer warning_num){
         Terminal updateTerminal = new Terminal();
         updateTerminal.setClientIp(clientIp);
         updateTerminal.setTerminalIp(terminalIp);
         updateTerminal.setUpdateTime(messagePro.getTime());
         updateTerminal.setStatus(messagePro.getStatus());
         updateTerminal.setOffTime(offTime);
+        updateTerminal.setWarningNum(warning_num);
         Preconditions.checkState(terminalMapper.updateByPrimaryKeySelective(updateTerminal)==1,"更新终端时间失败");
     }
 
@@ -86,8 +87,8 @@ public class MessageSerive {
             case "-1":
                 //第一次断开更新断开时间
                 if(terminal.getOffTime() == null || terminal.getWarningNum() == null) {
-                    updateTerminal(terminal.getClientIp(),terminal.getTerminalIp(),messagePro,terminal.getOffTime());
-                    terminalMapper.disconnect(new TerminalKey(terminal.getClientIp(),terminal.getTerminalIp()));
+                    updateTerminal(terminal.getClientIp(),terminal.getTerminalIp(),messagePro,terminal.getOffTime(),1);
+                    //terminalMapper.disconnect(new TerminalKey(terminal.getClientIp(),terminal.getTerminalIp()));
                 }
                 if(terminal.getWarningNum()<Common.SMS_NUMBER) {
                     terminalMapper.warning(new TerminalKey(terminal.getClientIp(),terminal.getTerminalIp()));
@@ -95,6 +96,7 @@ public class MessageSerive {
                 }
                 break;
             default:
+                updateTerminal(terminal.getClientIp(),terminal.getTerminalIp(),messagePro,null,null);
                 if(terminal.getOffTime() != null)
                     terminalMapper.recovery(new TerminalKey(terminal.getClientIp(),terminal.getTerminalIp()));
                 break;
