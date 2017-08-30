@@ -92,8 +92,7 @@ public class ConfigController extends BaseController {
         List<Client> clientList = configService.queryClient(ip,region);
         List<TerminalPro> terminalProList = new ArrayList<>();
         log.info("查询出的终端原始信息+"+ JSON.toJSONString(terminalProList));
-        if(clientList == null)
-            return ResponseWrapper().addData(null).ExeSuccess();
+
         for(Client client : clientList){
             for(Terminal terminal : client.getTerminalList()){
                 TerminalPro terminalPro = new TerminalPro(client,terminal);
@@ -101,7 +100,7 @@ public class ConfigController extends BaseController {
             }
         }
 
-        if(terminalProList.size() == 0){
+        if(terminalProList.size() == 0 || clientList == null){
             log.info("列表为空，构造数据...");
             Client client = new Client();
             Terminal terminal = new Terminal();
