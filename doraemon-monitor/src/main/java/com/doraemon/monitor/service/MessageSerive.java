@@ -85,11 +85,9 @@ public class MessageSerive {
             return;
         switch (messagePro.getStatus()){
             case "-1":
-                //第一次断开更新断开时间
-                if(terminal.getOffTime() == null || terminal.getWarningNum() == null) {
-                    updateTerminal(terminal.getClientIp(),terminal.getTerminalIp(),messagePro,terminal.getOffTime(),1);
-                    //terminalMapper.disconnect(new TerminalKey(terminal.getClientIp(),terminal.getTerminalIp()));
-                }
+                Integer warningNum = terminal.getWarningNum() == null ? 1 : terminal.getWarningNum();
+                Date offTime = terminal.getOffTime() == null ? messagePro.getTime() : terminal.getOffTime();
+                updateTerminal(terminal.getClientIp(),terminal.getTerminalIp(),messagePro,offTime,warningNum);
                 if(terminal.getWarningNum()<Common.SMS_NUMBER) {
                     terminalMapper.warning(new TerminalKey(terminal.getClientIp(),terminal.getTerminalIp()));
                     sendSMS(terminal.getPhone(), client.getNick(), terminal.getNick(), client.getIp());
