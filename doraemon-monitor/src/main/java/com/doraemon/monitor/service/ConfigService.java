@@ -85,7 +85,7 @@ public class ConfigService {
      */
     private List<Terminal> queryTerminal(String ip) {
         //by csrr
-        List<Terminal> list = terminalMapper.selectByClientIpOffTime(ip);
+        List<Terminal> list = terminalMapper.selectByClientIp(ip);
         return list;
     }
 
