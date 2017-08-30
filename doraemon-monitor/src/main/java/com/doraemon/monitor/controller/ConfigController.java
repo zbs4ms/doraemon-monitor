@@ -98,6 +98,14 @@ public class ConfigController extends BaseController {
                 terminalProList.add(terminalPro);
             }
         }
+
+        if(terminalProList.size() == 0){
+
+            Client client = new Client();
+            Terminal terminal = new Terminal();
+            TerminalPro terminalPro = new TerminalPro(client,terminal);
+            terminalProList.add(terminalPro);
+        }
         return ResponseWrapper().addData(terminalProList).ExeSuccess();
     }
 }
