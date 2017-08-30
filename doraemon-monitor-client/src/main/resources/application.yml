@@ -38,3 +38,10 @@ mybatis:
         mapperXmlPath: classpath:mapper/*.xml
         mapperPath: com.us.order.dao.mapper
 
+usability:
+    # 每1分钟轮训一次,根据配置文件ping终端,收集信息
+    pingCron: "0 */1 * * * ?"
+    # 每5分钟轮训一次,发送5分钟内收集到的终端信息
+    sendCron: "0 */5 * * * ?"
+    # 每1分钟轮训一次,从客户端拉取配置信息
+    updateCron: "0 */1 * * * ?"

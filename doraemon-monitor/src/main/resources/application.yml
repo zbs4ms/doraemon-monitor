@@ -3,10 +3,6 @@ server:
     # 统一接口访问前缀
     servlet-path: /monitor
 
-redis:
-     host: 10.10.20.206
-     port: 6381
-
 spring:
     datasource:
         name: ReadAndWrite
@@ -39,5 +35,18 @@ mybatis:
         mapperPath: com.doraemon.monitor.dao.mapper
 
 usability:
-  #lastDayCron: "0 0 1 * * ? "
+  # 统计昨天的数据,每天凌晨一点执行
   lastDayCron: "0 */1 * * * *"
+  #   统计上周的数据,每周一凌晨一点执行
+  lastWeekCron: "0 */1 * * * *"
+    # 统计上个月的数据,每月一号凌晨一点执行
+  lastMonthCron: "0 */1 * * * *"
+    # 统计上年的数据,每年一月一号凌晨一点执行
+  lastYearCron: "0 */1 * * * *"
+#  # 统计上周的数据,每周一凌晨一点执行
+#  lastWeekCron: "0 0 1 ? * MON"
+#  # 统计上个月的数据,每月一号凌晨一点执行
+#  lastMonthCron: "0 0 1 1 * ?"
+#  # 统计上年的数据,每年一月一号凌晨一点执行
+#  lastYearCron: "0 0 1 1 1 ?"
+
