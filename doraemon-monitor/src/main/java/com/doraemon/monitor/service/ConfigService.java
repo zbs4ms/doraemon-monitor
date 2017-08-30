@@ -42,8 +42,6 @@ public class ConfigService {
      * @return
      */
     public List<Client> queryClient(String ip, String region) {
-        if(ip == null)
-            return null;
         Map<String,Object> queryClient = new HashMap<>();
         queryClient.put("ip",ip);
         queryClient.put("regions",region == null || "".equals(region) ? null : region.split(","));
