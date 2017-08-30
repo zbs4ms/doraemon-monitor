@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -51,10 +52,11 @@ public class ConfigController extends BaseController {
     @ApiOperation(value = "修改配置(只能修改子IP列表 和 别名)")
     @RequestMapping(value = "updateConfig", method = RequestMethod.PUT)
     @ResponseBody
-    public JSONObject update(@ApiParam(value = "子IP列表", required = false) @RequestParam(value = "subIps", required = false) Map<String, String> subIps,
+    public JSONObject update(@ApiParam(value = "子IP", required = false) @RequestParam(value = "subIps", required = false)  String subIps,
                              @ApiParam(value = "客户端IP", required = true) @RequestParam(value = "ip", required = true) String ip,
                              @ApiParam(value = "客户端别名", required = false) @RequestParam(value = "nick", required = false) String nick) throws Exception {
-        configService.update(subIps,ip,nick);
+        List<SubIpsPro> subIpsList = JSONArray.parseArray(subIps,SubIpsPro.class);
+        configService.update(subIpsList,ip,nick);
         return ResponseWrapper().addData("ok").ExeSuccess();
     }
 

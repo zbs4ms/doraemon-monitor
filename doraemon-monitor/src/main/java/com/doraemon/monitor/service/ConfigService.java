@@ -6,6 +6,7 @@ import com.doraemon.monitor.dao.mapper.ClientMapper;
 import com.doraemon.monitor.dao.mapper.TerminalMapper;
 import com.doraemon.monitor.dao.models.Client;
 import com.doraemon.monitor.dao.models.Terminal;
+import com.doraemon.monitor.dao.models.TerminalKey;
 import com.doraemon.monitor.util.Helpers;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -110,15 +111,19 @@ public class ConfigService {
         //保存 client
         Preconditions.checkState(clientMapper.insert(newClient) == 1, "保存client失败.");
         for (SubIpsPro subIpsPro : subIps) {
-            Terminal newTerminal = new Terminal();
-            newTerminal.setNick(subIpsPro.getNick());
-            newTerminal.setTerminalIp(subIpsPro.getIp());
-            newTerminal.setDeviceType(getType(subIpsPro.getIp()));
-            newTerminal.setClientIp(newClient.getIp());
-            newTerminal.setPhone(subIpsPro.getPhone());
-            //保存 terminal
-            Preconditions.checkState(terminalMapper.insert(newTerminal) == 1, "保存terminal失败.");
+            saveTerminal(subIpsPro,newClient.getIp());
         }
+    }
+
+    public void saveTerminal(SubIpsPro subIpsPro,String clientIp) throws Exception {
+        Terminal newTerminal = new Terminal();
+        newTerminal.setNick(subIpsPro.getNick());
+        newTerminal.setTerminalIp(subIpsPro.getIp());
+        newTerminal.setDeviceType(getType(subIpsPro.getIp()));
+        newTerminal.setClientIp(clientIp);
+        newTerminal.setPhone(subIpsPro.getPhone());
+        //保存 terminal
+        Preconditions.checkState(terminalMapper.insert(newTerminal) == 1, "保存terminal失败.");
     }
 
     private String getType(String ip) throws Exception {
@@ -167,33 +172,53 @@ public class ConfigService {
      * @param nick
      */
     @Transactional
-    public void update(Map<String, String> subIps, String ip, String nick) {
+    public void update(List<SubIpsPro> subIps, String ip, String nick) throws Exception {
         Preconditions.checkState(ip != null && !ip.equals(""), "客户端IP不能为空.");
         Preconditions.checkState((nick != null && !nick.equals("")) || (subIps != null && subIps.size() > 0), "昵称和子IP列表不能同时为空.");
-        Client updateClient = new Client();
-        updateClient.setIp(ip);
-        //更新client的昵称
-        if (nick != null && !nick.equals("")) {
-            updateClient.setNick(nick);
-            clientMapper.updateByPrimaryKey(updateClient);
+        //更新client
+        Client selectClient = clientMapper.selectByPrimaryKey(ip);
+        if(selectClient == null || "".equals(selectClient.getIp()))
+             throw new Exception("该客户端不存在 + ip:"+ip);
+        selectClient.setNick(nick);
+        if(nick != null && !"".equals(nick) && !nick.equals(selectClient.getNick())) {
+            Preconditions.checkState(clientMapper.updateByPrimaryKeySelective(selectClient) == 1, "更新客户端昵称失败!");
         }
-        //如果没有其他更新就返回
-        if (subIps == null || subIps.equals(""))
+        //更新terminal
+        if(subIps == null || subIps.size() < 1)
             return;
-        //如果需要更新子IP信息,就开始更新
-        for (Map.Entry<String, String> entry : subIps.entrySet()) {
-            Terminal terminal = new Terminal();
-            terminal.setClientIp(ip);
-            terminal.setTerminalIp(entry.getKey());
-            terminal.setNick(entry.getValue());
-            Terminal selectTerminal = terminalMapper.selectOne(terminal);
-            //查询 terminal 是否存在,存在修改,否则新增
-            if (selectTerminal == null) {
-                terminalMapper.insert(terminal);
+        for(SubIpsPro subIpsPro : subIps){
+            TerminalKey terminalKey = new TerminalKey(ip,subIpsPro.getIp());
+            Terminal oldTerminal = terminalMapper.selectByPrimaryKey(terminalKey);
+            if(oldTerminal == null || oldTerminal.getTerminalIp() == null){
+                saveTerminal(subIpsPro,selectClient.getIp());
             } else {
-                terminalMapper.updateByPrimaryKeySelective(terminal);
+                oldTerminal.setNick(subIpsPro.getNick());
+                oldTerminal.setPhone(subIpsPro.getPhone());
+                terminalMapper.updateByPrimaryKeySelective(oldTerminal);
             }
+
         }
+
+
+//        //如果没有其他更新就返回
+//        if (subIps == null || subIps.equals(""))
+//            return;
+//        //如果需要更新子IP信息,就开始更新
+//        for (SubIpsPro subIpsPro : subIps) {
+//            TerminalKey terminalKey = new TerminalKey();
+//            terminalKey.setClientIp(ip);
+//            terminalKey.setTerminalIp(subIpsPro.getIp());
+//            Terminal selectTerminal = terminalMapper.selectByPrimaryKey(terminalKey);
+//            //查询 terminal 是否存在,存在修改,否则新增
+//            Terminal newTerminal = new Terminal(terminalKey);
+//            newTerminal.setNick(subIpsPro.getNick());
+//            if (selectTerminal == null) {
+//                terminalMapper.insert(terminal);
+//            } else {
+//                selectTerminal.setNick(subIpsPro.getNick());
+//                terminalMapper.updateByPrimaryKeySelective(selectTerminal);
+//            }
+//        }
 
     }
 

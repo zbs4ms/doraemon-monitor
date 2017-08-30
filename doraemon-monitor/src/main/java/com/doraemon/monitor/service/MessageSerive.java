@@ -38,6 +38,7 @@ public class MessageSerive {
     @Autowired
     MonitorLogMapper monitorLogMapper;
 
+
     /**
      * 增加日志
      *
