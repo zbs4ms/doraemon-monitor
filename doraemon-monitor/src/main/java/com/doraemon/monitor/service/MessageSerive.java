@@ -68,7 +68,6 @@ public class MessageSerive {
         updateTerminal.setTerminalIp(terminalIp);
         updateTerminal.setUpdateTime(date);
         Preconditions.checkState(terminalMapper.updateByPrimaryKeySelective(updateTerminal)==1,"更新终端时间失败");
-
     }
 
     /**

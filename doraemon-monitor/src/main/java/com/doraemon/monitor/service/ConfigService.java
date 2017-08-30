@@ -198,28 +198,6 @@ public class ConfigService {
             }
 
         }
-
-
-//        //如果没有其他更新就返回
-//        if (subIps == null || subIps.equals(""))
-//            return;
-//        //如果需要更新子IP信息,就开始更新
-//        for (SubIpsPro subIpsPro : subIps) {
-//            TerminalKey terminalKey = new TerminalKey();
-//            terminalKey.setClientIp(ip);
-//            terminalKey.setTerminalIp(subIpsPro.getIp());
-//            Terminal selectTerminal = terminalMapper.selectByPrimaryKey(terminalKey);
-//            //查询 terminal 是否存在,存在修改,否则新增
-//            Terminal newTerminal = new Terminal(terminalKey);
-//            newTerminal.setNick(subIpsPro.getNick());
-//            if (selectTerminal == null) {
-//                terminalMapper.insert(terminal);
-//            } else {
-//                selectTerminal.setNick(subIpsPro.getNick());
-//                terminalMapper.updateByPrimaryKeySelective(selectTerminal);
-//            }
-//        }
-
     }
 
 }

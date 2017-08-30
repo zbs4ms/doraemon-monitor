@@ -27,6 +27,8 @@ public class TerminalPro {
 
     private String deviceType;
 
+    private Date triggerTime;
+
     private Date offTime;
 
     private Integer warningNum;
@@ -45,6 +47,7 @@ public class TerminalPro {
             this.setOffTime(terminal.getOffTime());
             this.setWarningNum(terminal.getWarningNum());
             this.setStatus(terminal.getStatus());
+            this.setTriggerTime(terminal.getUpdateTime());
         }
     }
 }
