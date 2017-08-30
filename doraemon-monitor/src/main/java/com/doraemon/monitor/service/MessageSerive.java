@@ -87,6 +87,7 @@ public class MessageSerive {
             case "-1":
                 Integer warningNum = terminal.getWarningNum() == null ? 1 : terminal.getWarningNum();
                 Date offTime = terminal.getOffTime() == null ? messagePro.getTime() : terminal.getOffTime();
+                log.info("该设备"+terminal.getTerminalIp()+"断线中  warningNum = " + warningNum + " offTime="+offTime);
                 updateTerminal(terminal.getClientIp(),terminal.getTerminalIp(),messagePro,offTime,warningNum);
                 if(terminal.getWarningNum()<Common.SMS_NUMBER) {
                     terminalMapper.warning(new TerminalKey(terminal.getClientIp(),terminal.getTerminalIp()));
@@ -95,6 +96,7 @@ public class MessageSerive {
                 break;
             default:
                 updateTerminal(terminal.getClientIp(),terminal.getTerminalIp(),messagePro,null,null);
+                log.info("该设备"+terminal.getTerminalIp()+"没问题");
                 if(terminal.getOffTime() != null)
                     terminalMapper.recovery(new TerminalKey(terminal.getClientIp(),terminal.getTerminalIp()));
                 break;
