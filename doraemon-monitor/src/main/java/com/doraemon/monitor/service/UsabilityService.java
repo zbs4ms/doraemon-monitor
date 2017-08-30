@@ -1,5 +1,6 @@
 package com.doraemon.monitor.service;
 
+import com.alibaba.fastjson.JSON;
 import com.doraemon.monitor.dao.mapper.ClientMapper;
 import com.doraemon.monitor.dao.mapper.ClientUsabilityMapper;
 import com.doraemon.monitor.dao.mapper.TerminalMapper;
@@ -93,6 +94,7 @@ public class UsabilityService {
             clientUsability.setClientIp(clientIp);
         if(region != null)
             clientUsability.setRegion(region);
+        log.info("查询门店可用性   client+"+ JSON.toJSONString(clientUsability));
         List<ClientUsability> clientUsabilityList = clientUsabilityMapper.select(clientUsability);
         if(clientUsabilityList == null || clientUsabilityList.size()<1)
             return null;
