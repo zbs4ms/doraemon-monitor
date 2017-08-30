@@ -91,45 +91,27 @@ public class ConfigController extends BaseController {
             @ApiParam(value = "客户端IP",required = false) @RequestParam(value = "ip",required = false) String ip,
             @ApiParam(value = "客户端区域",required = false) @RequestParam(value = "region",required = false) String region) throws Exception {
         List<Client> clientList = configService.queryClient(ip,region);
-<<<<<<< HEAD
+        List<TerminalPro> terminalProList = new ArrayList<>();
+
         log.info("查询出的终端原始信息+"+ JSON.toJSONString(clientList));
-        if(clientList == null)
-            return ResponseWrapper().addData(null).ExeSuccess();
-        List<TerminalPro> terminalProList = new ArrayList<>();
-=======
-        List<TerminalPro> terminalProList = new ArrayList<>();
-        log.info("查询出的终端原始信息+"+ JSON.toJSONString(terminalProList));
-
->>>>>>> 9d0173691914b40a8dc75846201150459fb5972b
-        for(Client client : clientList){
-            for(Terminal terminal : client.getTerminalList()){
-                TerminalPro terminalPro = new TerminalPro(client,terminal);
-                terminalProList.add(terminalPro);
-            }
-        }
-<<<<<<< HEAD
-//
-//        if(terminalProList.size() == 0){
-//            log.info("列表为空，构造数据...");
-//            Client client = new Client();
-//            Terminal terminal = new Terminal();
-//            TerminalPro terminalPro = new TerminalPro(client,terminal);
-//            terminalProList.add(terminalPro);
-//        }else {
-//            log.info("列表长度："+terminalProList.size());
-//        }
-=======
-
-        if(terminalProList.size() == 0 || clientList == null){
+        if(clientList == null){
             log.info("列表为空，构造数据...");
             Client client = new Client();
             Terminal terminal = new Terminal();
             TerminalPro terminalPro = new TerminalPro(client,terminal);
             terminalProList.add(terminalPro);
-        }else {
-            log.info("列表长度："+terminalProList.size());
+            return ResponseWrapper().addData(terminalProList).ExeSuccess();
         }
->>>>>>> 9d0173691914b40a8dc75846201150459fb5972b
+
+
+        for(Client client : clientList) {
+            for (Terminal terminal : client.getTerminalList()) {
+                TerminalPro terminalPro = new TerminalPro(client, terminal);
+                terminalProList.add(terminalPro);
+            }
+        }
+
+
         return ResponseWrapper().addData(terminalProList).ExeSuccess();
     }
 }
