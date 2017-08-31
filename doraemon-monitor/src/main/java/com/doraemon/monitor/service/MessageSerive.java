@@ -16,6 +16,7 @@ import com.github.pagehelper.PageInfo;
 import com.google.common.base.Preconditions;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -37,6 +38,8 @@ public class MessageSerive {
     @Autowired
     MonitorLogMapper monitorLogMapper;
 
+    @Value("${alerts.SMS_NUMBER}")
+    private Integer SMS_NUMBER;
 
     /**
      * 增加日志
@@ -89,7 +92,7 @@ public class MessageSerive {
                 Date offTime = terminal.getOffTime() == null ? messagePro.getTime() : terminal.getOffTime();
                 log.info("该设备"+terminal.getTerminalIp()+"断线中  warningNum = " + warningNum + " offTime="+offTime);
                 updateTerminal(terminal.getClientIp(),terminal.getTerminalIp(),messagePro,offTime,warningNum);
-                if(terminal.getWarningNum()<Common.SMS_NUMBER) {
+                if(terminal.getWarningNum()<SMS_NUMBER) {
                     terminalMapper.warning(new TerminalKey(terminal.getClientIp(),terminal.getTerminalIp()));
                     sendSMS(terminal.getPhone(), client.getNick(), terminal.getNick(), client.getIp());
                 }

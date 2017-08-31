@@ -34,6 +34,9 @@ mybatis:
         mapperXmlPath: classpath:mapper/*.xml
         mapperPath: com.doraemon.monitor.dao.mapper
 
+alerts:
+    SMS_NUMBER: 1
+
 usability:
   # 统计昨天的数据,每天凌晨一点执行
   lastDayCron: "0 */1 * * * *"
