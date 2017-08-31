@@ -35,6 +35,7 @@ mybatis:
         mapperPath: com.doraemon.monitor.dao.mapper
 
 alerts:
+    # 短信告警最大次数
     SMS_NUMBER: 1
 
 usability:

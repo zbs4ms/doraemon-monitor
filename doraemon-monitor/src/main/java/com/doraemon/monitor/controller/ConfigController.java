@@ -38,9 +38,9 @@ public class ConfigController extends BaseController {
     @ApiOperation(value = "增加配置")
     @RequestMapping(value = "addConfig", method = RequestMethod.POST)
     @ResponseBody
-    public JSONObject add(@ApiParam(value = "子IP列表[{'ip':'**';'nick':'**';'phone';'****'},{'ip':'**';'nick':'**';'phone';'****'}]", required = true) @RequestParam(value = "subIps", required = true) String subIps,
-                          @ApiParam(value = "客户端IP", required = true) @RequestParam(value = "ip", required = true) String ip,
-                          @ApiParam(value = "客户端别名", required = true) @RequestParam(value = "nick", required = true) String nick,
+    public JSONObject add(@ApiParam(value = "子IP列表,例:[{'ip':'127.0.0.1','nick':'aaaaa','phone':'13678113250'},{'ip':'127.0.0.2','nick':'bbbbb','phone':'13678113250'}]\n", required = true) @RequestParam(value = "subIps", required = true) String subIps,
+                          @ApiParam(value = "客户端标识,启动客户端时候传入的值", required = true) @RequestParam(value = "ip", required = true) String ip,
+                          @ApiParam(value = "客户端名称", required = true) @RequestParam(value = "nick", required = true) String nick,
                           @ApiParam(value = "客户端区域", required = true) @RequestParam(value = "region", required = true) String region,
                           @ApiParam(value = "客户端门店ID", required = true) @RequestParam(value = "shopId", required = true) String shopId) throws Exception {
 
