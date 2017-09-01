@@ -29,7 +29,7 @@ public class Main implements CommandLineRunner {
 
     public static void main(String[] args) throws Exception {
         //todo: 测试用
-        args[0]="z002";
+        //args[0]="z002";
         if(args == null || args.length<1 ||args[0].equals(""))
             throw new Exception("必须指定本机的标识是.");
         log.info("本机标标识为 ---> "+args[0]+"  长度:"+args.length);
@@ -41,7 +41,7 @@ public class Main implements CommandLineRunner {
 
     @Override
     public void run(String... strings) throws Exception {
-        updateConfigService.update();
+        //updateConfigService.update();
         System.out.println("服务启动完毕.");
     }
 
