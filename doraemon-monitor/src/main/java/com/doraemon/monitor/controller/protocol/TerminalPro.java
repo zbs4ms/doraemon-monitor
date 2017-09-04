@@ -37,11 +37,12 @@ public class TerminalPro {
 
     public TerminalPro(Client client, Terminal terminal){
         log.info("构造terminal对象 client:"+ JSON.toJSONString(client)+" terminal:"+JSON.toJSONString(terminal));
-        this.setIp(client.getIp());
+        //this.setIp(client.getIp());
         this.setClientNick(client.getNick());
         this.setRegion(client.getRegion());
         this.setShopId(client.getShopId());
         if(terminal != null) {
+            this.setIp(terminal.getTerminalIp());
             this.setTerminalNick(terminal.getNick());
             this.setDeviceType(terminal.getDeviceType());
             this.setOffTime(terminal.getOffTime());
