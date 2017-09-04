@@ -94,7 +94,9 @@ public class MessageSerive {
                 updateTerminal(terminal.getClientIp(),terminal.getTerminalIp(),messagePro,offTime,warningNum);
                 if(terminal.getWarningNum()<SMS_NUMBER) {
                     terminalMapper.warning(new TerminalKey(terminal.getClientIp(),terminal.getTerminalIp()));
-                    sendSMS(terminal.getPhone(), client.getNick(), terminal.getNick(), client.getIp());
+                    //   sendSMS(terminal.getPhone(), client.getNick(), terminal.getNick(), client.getIp());
+                    //changed by csrr
+                    sendSMS(terminal.getPhone(), client.getNick(), terminal.getNick(), terminal.getTerminalIp());
                 }
                 break;
             default:
